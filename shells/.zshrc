@@ -33,13 +33,13 @@ ZIM_HOME=~/.zim
 
 # Download zimfw plugin manager if missing
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-  curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-      https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+	curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+		https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 fi
 
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  source ${ZIM_HOME}/zimfw.zsh init -q
+	source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 
 # Initialize modules.
@@ -58,9 +58,8 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 # --- End of ZimFW config ---
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
@@ -70,7 +69,7 @@ export PATH
 
 # Aliases
 if [ -f ~/.zsh_aliases ]; then
-    . ~/.zsh_aliases
+	. ~/.zsh_aliases
 fi
 
 # Prompt coloring
@@ -86,10 +85,6 @@ export PATH=$PATH:$HOME/Tools/
 
 # --- Version managers, Toolchains, and Language directories ---
 
-# Lines added by cargo
-. "$HOME/.cargo/env"
-# End of lines added by cargo
-
 # Lines added by Go
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH="$HOME/Code/go"
@@ -98,7 +93,7 @@ export GOPATH="$HOME/Code/go"
 # pnpm
 export PNPM_HOME="/home/noahj/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
