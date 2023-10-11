@@ -48,9 +48,9 @@ source ${ZIM_HOME}/init.zsh
 # ZimFW plugin configs
 typeset -A ZSH_HIGHLIGHT_STYLES
 
-ZSH_HIGHLIGHT_STYLES[command]='fg=yellow,bold'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow,bold'
 ZSH_HIGHLIGHT_STYLES[alias]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[command]='fg=yellow,bold'
 
 # To have paths colored instead of underlined
 ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
@@ -93,7 +93,7 @@ export GOPATH="$HOME/Code/go"
 # pnpm
 export PNPM_HOME="/home/noahj/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
