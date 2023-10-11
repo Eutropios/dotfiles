@@ -6,9 +6,8 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
@@ -27,10 +26,7 @@ fi
 unset rc
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+	. ~/.bash_aliases
 fi
 
 PS1="\[\033[1;32m\]\u\[\033[1;37m\]@\[\033[1;36m\]\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[00m\]\$ "
-
-
-
