@@ -12,6 +12,5 @@ If you would like to use my zshrc without zimfw, please remove the relevant line
 To install both my `.zshrc` and zimfw configs, follow these steps:
 
 1. Clone this repo.
-2. Move `.zshrc` and `.zsh_aliases` to your home directory.
-3. Follow the manual installation steps to install zimfw [here](https://github.com/zimfw/zimfw), using my `.zimrc` file where it asks you to create a `.zimrc` file.
-4. Restart your shell
+2. Move `.zimrc`, `.zshrc` and `.zsh_aliases` to your home directory.
+3. Restart your shell.
