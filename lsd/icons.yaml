@@ -1,0 +1,20 @@
+name:
+  .trash: 
+  .cargo: 
+  .emacs.d: 
+  a.out: 
+  .zimrc: 
+  .zshrc: 
+  .yarnrc: 
+  .dir_colors: 
+  .histfile: 
+  .wget-hsts: 
+  .zcompdump: 
+  .zsh_aliases: 
+  nvim: 
+extension:
+  go: 
+  hs: 
+  rs: 🦀
+filetype:
+  executable: 
