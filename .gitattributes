@@ -1,1 +1,3 @@
 lsd/*.yaml linguist-detectable
+.zimrc linguist-language=Shell
+.zsh_aliases linguist-language=Shell
