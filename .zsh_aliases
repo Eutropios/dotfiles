@@ -5,4 +5,11 @@ alias ls="lsd"                 # Reassign ls to lsd command
 alias py="python3"             # Windows version of python3
 alias python="python3"         # ensuring python3 usage
 alias vim="nvim"               # ensuring usage of neovim
+alias z="zoxide"               # shorter zoxide
 alias zim="zimfw"              # zimfw package manager for zsh
+
+#Stabilize videos in directory
+alias stabilize='for a in *.mp4; do ffmpeg -i "$a" -vf vidstabdetect -f null - && ffmpeg -i $a -vf vidstabtransform "stabilized$a" && rm transforms.trf "$a"; done'
+
+# Merge a photo with a song
+alias tothumbnail='ffmpeg -loop 1 -i thumbnail.png -i song.wav -c:v libx265 -c:a aac -b:a 256k -pix_fmt yuv420p -shortest out.mp4'
