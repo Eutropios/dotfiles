@@ -12,10 +12,5 @@ lines of code in zshrc.
 
 ## Installation
 
-### `.zshrc` and `zimfw`
-
-To install both my `.zshrc` and zimfw configs, follow these steps:
-
-1. Clone this repo.
-2. Move `.zimrc`, `.zshrc` and `.zsh_aliases` to your home directory.
-3. Restart your shell.
+Make sure you have GNU stow installed, then clone this repo. Then you'll want
+to use stow to unpack the contents of the repo.
