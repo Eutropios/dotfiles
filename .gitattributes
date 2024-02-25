@@ -1,0 +1,3 @@
+lsd/*.yaml linguist-detectable
+shells/.zimrc linguist-language=Shell
+shells/.zsh_aliases linguist-language=Shell
