@@ -1,9 +1,9 @@
 # About system:
-# Font used: Jetbrains Mono
+# Font used: Nerd Consolig
 # Text editor: Neovim (see config repo)
 # zsh plugin manager: ZimFW
 # zsh plugins: autocomplete, syntax highlighting
-# Distribution: Fedora Desktop 38
+# Distribution: Fedora Desktop 39
 # Startup: systemd
 
 # ---***---***---***---***---
@@ -54,19 +54,19 @@ ZIM_HOME="$HOME/.zim"
 
 # Download zimfw plugin manager if missing
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-	curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+	curl -fsSL --create-dirs -o "${ZIM_HOME}/zimfw.zsh" \
 		https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 fi
 
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
 	# shellcheck disable=SC1091
-	. ${ZIM_HOME}/zimfw.zsh init -q
+	. "${ZIM_HOME}/zimfw.zsh init -q"
 fi
 
 # Initialize modules
 # shellcheck disable=SC1091
-. ${ZIM_HOME}/init.zsh
+. "${ZIM_HOME}/init.zsh"
 
 # ZimFW plugin configs
 typeset -A ZSH_HIGHLIGHT_STYLES
@@ -80,44 +80,21 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 # --- End of ZimFW config ---
 
-# --- Aliases, Manual PATH Additions, and Prompt Colouring ---
-
-# Creating a path if it doesn't exist
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-
-# pnpm
-export PNPM_HOME="/home/noahj/.local/share/pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME:"*) ;;
-*) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# Add ~/Tools/ to PATH
-PATH="$HOME/Tools/:$PATH"
-
-# Add Mason tools to path
-PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
-
-# Add update script
-PATH="$HOME/code/shellScripts/:$PATH"
-
-# --- Version managers, Toolchains, and Language directories ---
-# Lines added by Go
-export PATH="$PATH:/usr/local/go/bin"
-export GOPATH="$HOME/code/go"
-# End of lines added by Go
-
-# shellcheck disable=SC1091
-. "$HOME/.cargo/env"
-
 # Aliases
-if [ -f "$HOME/.zsh_aliases" ]; then
-	# shellcheck disable=SC1091
-	. "$HOME/.zsh_aliases"
-fi
+alias cls="clear"              # Windows version of clear
+alias du="du -h --max-depth=1" # set default for du command
+alias ls="lsd"                 # Reassign ls to lsd command
+alias py="python3"             # Windows version of python3
+alias python="python3"         # ensuring python3 usage
+alias vim="nvim"               # ensuring usage of neovim
+alias z="zoxide"               # shorter zoxide
+alias zim="zimfw"              # zimfw package manager for zsh
+
+#Stabilize videos in directory
+alias stabilize='for a in *.mp4; do ffmpeg -i "$a" -vf vidstabdetect -f null - && ffmpeg -i $a -vf vidstabtransform "stabilized$a" && rm transforms.trf "$a"; done'
+
+# Merge a photo with a song
+alias tothumbnail='ffmpeg -loop 1 -i thumbnail.png -i song.wav -c:v libx265 -c:a aac -b:a 256k -pix_fmt yuv420p -shortest out.mp4'
 
 # Functions
 

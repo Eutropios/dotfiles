@@ -1,16 +1,17 @@
 name:
-  .trash: 
   .cargo: 
-  .emacs.d: 
-  a.out: 
-  .zimrc: 
-  .zshrc: 
-  .yarnrc: 
   .dir_colors: 
+  .emacs.d: 
   .histfile: 
+  .trash: 
   .wget-hsts: 
+  .yarnrc: 
   .zcompdump: 
+  .zimrc: 
   .zsh_aliases: 
+  .zshenv: 
+  .zshrc: 
+  a.out: 
   nvim: 
 extension:
   go: 
