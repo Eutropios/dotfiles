@@ -1,3 +1,4 @@
-lsd/*.yaml linguist-detectable
-shells/.zimrc linguist-language=Shell
-shells/.zsh_aliases linguist-language=Shell
+*.fish linguist-detectable
+*.yaml linguist-detectable
+.zimrc linguist-language=Shell
+.zsh_aliases linguist-language=Shell
