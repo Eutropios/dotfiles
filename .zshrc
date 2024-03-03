@@ -80,14 +80,15 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 # --- End of ZimFW config ---
 
+eval "$(atuin init zsh)"
+bindkey '^r' atuin-search
+
 # Aliases
 alias cls="clear"              # Windows version of clear
 alias du="du -h --max-depth=1" # set default for du command
-alias ls="lsd"                 # Reassign ls to lsd command
 alias py="python3"             # Windows version of python3
 alias python="python3"         # ensuring python3 usage
 alias vim="nvim"               # ensuring usage of neovim
-alias z="zoxide"               # shorter zoxide
 alias zim="zimfw"              # zimfw package manager for zsh
 
 #Stabilize videos in directory

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 sudo unlink /etc/resolv.conf # this will unlink the default wsl2 resolv.conf
 
