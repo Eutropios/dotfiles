@@ -13,6 +13,7 @@ _darcs
 
 \.git
 \.gitignore
+\.gitattributes
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
@@ -21,4 +22,3 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 ^/CODE_OF_CONDUCT.*
-^/\.config/nvim/\.mypy_cache

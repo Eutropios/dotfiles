@@ -94,6 +94,7 @@ eval "$(register-python-argcomplete pipx)"
 # Aliases
 alias cls="clear"              # Windows version of clear
 alias du="du -h --max-depth=1" # set default for du command
+alias la="lsd"                 # easier lsd alias
 alias py="python3"             # Windows version of python3
 alias python="python3"         # ensuring python3 usage
 alias vim="nvim"               # ensuring usage of neovim
