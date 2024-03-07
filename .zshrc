@@ -24,7 +24,13 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 zstyle :compinstall filename '/home/noahj/.zshrc'
 
 autoload -Uz compinit
+
+fpath+=~/.zfunc
+
 compinit
+
+autoload -U bashcompinit
+bashcompinit
 # End of lines added by compinstall
 
 # ---- Prompt configuration ----
@@ -82,6 +88,8 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 eval "$(atuin init zsh)"
 bindkey '^r' atuin-search
+
+eval "$(register-python-argcomplete pipx)"
 
 # Aliases
 alias cls="clear"              # Windows version of clear
