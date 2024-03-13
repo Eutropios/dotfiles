@@ -37,7 +37,7 @@ bashcompinit
 # VCS info
 autoload -Uz vcs_info
 precmd_vcs_info() {
-	vcs_info
+    vcs_info
 }
 precmd_functions+=(precmd_vcs_info)
 setopt prompt_subst
@@ -60,14 +60,14 @@ ZIM_HOME="$HOME/.zim"
 
 # Download zimfw plugin manager if missing
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-	curl -fsSL --create-dirs -o "${ZIM_HOME}/zimfw.zsh" \
-		https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+    curl -fsSL --create-dirs -o "${ZIM_HOME}/zimfw.zsh" \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 fi
 
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-	# shellcheck disable=SC1091
-	. "${ZIM_HOME}/zimfw.zsh init -q"
+    # shellcheck disable=SC1091
+    . "${ZIM_HOME}/zimfw.zsh init -q"
 fi
 
 # Initialize modules
@@ -110,16 +110,16 @@ alias tothumbnail='ffmpeg -loop 1 -i thumbnail.png -i song.wav -c:v libx265 -c:a
 
 # Blurs background of vertical videos in the directory
 function blurbackground() {
-	for a in *.mp4; do
-		ffmpeg -i "$a" -filter_complex "[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16" "blurred$a"
-		rm "$a"
-	done
+    for a in *.mp4; do
+        ffmpeg -i "$a" -filter_complex "[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16" "blurred$a"
+        rm "$a"
+    done
 }
 
 # Loop videos in directory for a specific time
 function loopvideo() {
-	for a in *.mp4; do
-		ffmpeg -stream_loop -1 -i "$a" -c:v libx265 -tag:v hvc1 -movflags faststart -vf scale=1268:-2 -t "$1" "looped$a"
-		rm -r "$a"
-	done
+    for a in *.mp4; do
+        ffmpeg -stream_loop -1 -i "$a" -c:v libx265 -tag:v hvc1 -movflags faststart -vf scale=1268:-2 -t "$1" "looped$a"
+        rm -r "$a"
+    done
 }

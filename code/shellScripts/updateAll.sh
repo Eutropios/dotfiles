@@ -2,7 +2,7 @@
 
 # pip
 # luarocks
-# rubygems
+# Possible luarocks command: luarocks list --outdated --porcelain | sed 's/\s.*//'
 # cpanm
 
 # . "$HOME"/.zim/init.zsh
@@ -28,6 +28,9 @@ update-script() {
 
 declare -a updates=(
     "sudo dnf upgrade"
+    "sudo dnf autoremove"
+    "gem update"
+    "gem cleanup"
     "rustup update"
     "cargo-install-update install-update all"
     "pnpm update -gL"
