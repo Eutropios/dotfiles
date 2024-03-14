@@ -22,3 +22,5 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 ^/CODE_OF_CONDUCT.*
+^/\.pre-commit-config\.yaml
+^/\.markdownlint\.yaml

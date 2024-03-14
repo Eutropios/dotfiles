@@ -2,7 +2,7 @@
 
 # pip
 # luarocks
-# Possible luarocks command: luarocks list --outdated --porcelain | sed 's/\s.*//'
+# Possible luarocks command: luarocks list --outdated --porcelain | cut -f1
 # cpanm
 
 # . "$HOME"/.zim/init.zsh
