@@ -3,4 +3,15 @@ repos:
     rev: v0.12.1
     hooks:
       - id: markdownlint-cli2
-# temp
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v4.5.0"
+    hooks:
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
