@@ -39,3 +39,7 @@ export ATUIN_NOBIND="true"
 
 export GEM_HOME=$HOME/.gem
 export GEM_PATH=$HOME/.gem
+
+export PIP_REQUIRE_VIRTUALENV=true
+
+export ZIM_HOME="$HOME/.zim"

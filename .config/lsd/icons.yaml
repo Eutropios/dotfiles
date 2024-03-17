@@ -2,6 +2,7 @@ name:
   .cargo: 
   .dir_colors: 
   .emacs.d: 
+  .gemrc: "\U000F0D2D"
   .histfile: 
   .trash: 
   .wget-hsts: 

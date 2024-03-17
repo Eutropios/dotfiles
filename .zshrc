@@ -2,7 +2,8 @@
 # Font used: Nerd Consolig
 # Text editor: Neovim (see config repo)
 # zsh plugin manager: ZimFW
-# zsh plugins: autocomplete, syntax highlighting
+# zsh plugins: autocomplete, syntax highlighting, atuin,
+# zsh modules: vcs, zmv, compinit, bashcompinit
 # Distribution: Fedora Desktop 39
 # Startup: systemd
 
@@ -22,7 +23,7 @@ bindkey '^[[Z' reverse-menu-complete
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle :compinstall filename '/home/noahj/.zshrc'
-
+autoload -U zmv
 autoload -Uz compinit
 
 fpath+=~/.zfunc
@@ -56,16 +57,15 @@ PROMPT='%B%F{green}%n%f%b@%B%F{cyan}%m%f%b:%B%F{blue}%~%f%b$ '
 # ---- End of prompt configuration ----
 
 # ---- ZimFW config ----
-ZIM_HOME="$HOME/.zim"
 
 # Download zimfw plugin manager if missing
-if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+if [[ ! -e "${ZIM_HOME}/zimfw.zsh" ]]; then
     curl -fsSL --create-dirs -o "${ZIM_HOME}/zimfw.zsh" \
         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 fi
 
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+if [[ ! "${ZIM_HOME}/init.zsh" -nt "${ZDOTDIR:-${HOME}}/.zimrc" ]]; then
     # shellcheck disable=SC1091
     . "${ZIM_HOME}/zimfw.zsh init -q"
 fi
@@ -94,7 +94,7 @@ eval "$(register-python-argcomplete pipx)"
 # Aliases
 alias cls="clear"              # Windows version of clear
 alias du="du -h --max-depth=1" # set default for du command
-alias la="lsd"                 # easier lsd alias
+alias ls="lsd"                 # easier lsd alias
 alias py="python3"             # Windows version of python3
 alias python="python3"         # ensuring python3 usage
 alias vim="nvim"               # ensuring usage of neovim
