@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
-
+set -eo pipefail
 # pip
-# luarocks
-# Possible luarocks command: luarocks list --outdated --porcelain | cut -f1
-# cpanm
-
-# . "$HOME"/.zim/init.zsh
-
-# printf "Updating zimfw..\n"
-# zimfw update
 
 NO_FORMAT="\033[0m"
 C_TEAL="\033[38;5;6m"
@@ -27,16 +19,21 @@ update-script() {
 }
 
 declare -a updates=(
+    "updateLuarocks"
     "sudo dnf upgrade --refresh"
     "sudo dnf autoremove"
     "gem update"
     "gem cleanup"
     "rustup update"
-    "cargo-install-update install-update all"
+    "cargo-install-update install-update --all"
     "pnpm update -gL"
     "pipx upgrade-all"
 )
 
-for cmd in "${updates[@]}"; do
-    update-script "$cmd"
-done
+main() {
+    for cmd in "${updates[@]}"; do
+        update-script "$cmd"
+    done
+}
+
+main
