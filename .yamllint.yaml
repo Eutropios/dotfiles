@@ -16,7 +16,7 @@ rules:
   hyphens: enable
   indentation: enable
   key-duplicates: enable
-  key-ordering: enable
+  key-ordering: disable
   line-length: enable
   new-line-at-end-of-file: enable
   new-lines: enable

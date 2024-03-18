@@ -92,19 +92,21 @@ bindkey '^r' atuin-search
 eval "$(register-python-argcomplete pipx)"
 
 # Aliases
-alias cls="clear"              # Windows version of clear
-alias diff="delta"             # better diff
-alias ds="dust"                # give dust a shorter name
-alias du="du -h --max-depth=1" # set default for du command
-alias find="fd"                # better find
-alias grep="rg"                # make grep to use ripgrep
-alias ls="lsd"                 # easier lsd alias
-alias py="python3"             # Windows version of python3
-alias python="python3"         # ensuring python3 usage
-alias tree="erd"               # better tree
-alias vim="nvim"               # ensuring usage of neovim
-alias zim="zimfw"              # zimfw package manager for zsh
-alias zj="zellij"              # give zellij a shorter name
+alias bat="bat --theme='Visual Studio Dark+' --color=always" # changing bat defaults
+alias cat="bat --theme='Visual Studio Dark+' --color=always" # aliasing cat to bat
+alias cls="clear"                                            # Windows version of clear
+alias diff="delta"                                           # better diff
+alias ds="dust"                                              # give dust a shorter name
+alias du="du -h --max-depth=1"                               # set default for du command
+alias find="fd"                                              # better find
+alias grep="rg"                                              # make grep to use ripgrep
+alias ls="lsd"                                               # easier lsd alias
+alias py="python3"                                           # Windows version of python3
+alias python="python3"                                       # ensuring python3 usage
+alias tree="erd"                                             # better tree
+alias vim="nvim"                                             # ensuring usage of neovim
+alias zim="zimfw"                                            # zimfw package manager for zsh
+alias zj="zellij"                                            # give zellij a shorter name
 
 #Stabilize videos in directory
 alias stabilize='for a in *.mp4; do ffmpeg -i "$a" -vf vidstabdetect -f null - && ffmpeg -i $a -vf vidstabtransform "stabilized$a" && rm transforms.trf "$a"; done'
