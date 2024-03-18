@@ -24,3 +24,4 @@ _darcs
 ^/CODE_OF_CONDUCT.*
 ^/\.pre-commit-config\.yaml
 ^/\.markdownlint\.yaml
+^/\.yamllint\.yaml
