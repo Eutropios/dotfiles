@@ -3,7 +3,7 @@ set -eo pipefail
 
 rockarray=()
 mapfile -t rockarray < <(luarocks list --outdated --porcelain | cut -f1)
-if [[ ${#rockarray[@]} -eq 0 ]]; then
+if [[ ${#rockarray[@]} -ne 0 ]]; then
     for rock in "${rockarray[@]}"; do
         echo -e "Updating $rock..."
         sh -c "luarocks install --local $rock"

@@ -8,12 +8,12 @@
 # Startup: systemd
 
 # ---***---***---***---***---
-
+# zmodload zsh/zprof
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep extendedglob nomatch histignoredups menu_complete
+setopt autocd beep extendedglob nomatch histignoredups menu_complete prompt_subst
 unsetopt notify
 bindkey -v
 bindkey '^[[Z' reverse-menu-complete
@@ -23,32 +23,27 @@ bindkey '^[[Z' reverse-menu-complete
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle :compinstall filename '/home/noahj/.zshrc'
-autoload -U zmv
-autoload -Uz compinit
+autoload -Uz compinit vcs_info
+autoload -U zmv bashcompinit colors && colors
 
 fpath+=~/.zfunc
 
 compinit
-
-autoload -U bashcompinit
 bashcompinit
 # End of lines added by compinstall
 
 # ---- Prompt configuration ----
 # VCS info
-autoload -Uz vcs_info
 precmd_vcs_info() {
     vcs_info
 }
 precmd_functions+=(precmd_vcs_info)
-setopt prompt_subst
 RPROMPT=\$vcs_info_msg_0_
 # PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%b'
 # End of VCS info
 
 # Prompt colouring
-autoload -U colors && colors
 PROMPT='%B%F{green}%n%f%b@%B%F{cyan}%m%f%b:%B%F{blue}%~%f%b$ '
 
 # The equivalent string for Bash terminals:
@@ -130,3 +125,5 @@ function loopvideo() {
         rm -r "$a"
     done
 }
+
+#zprof
