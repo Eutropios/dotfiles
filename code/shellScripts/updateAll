@@ -19,7 +19,7 @@ update-script() {
 }
 
 declare -a updates=(
-    "updateLuarocks"
+    "update-luarocks"
     "sudo dnf upgrade --refresh"
     "sudo dnf autoremove"
     "gem update"
