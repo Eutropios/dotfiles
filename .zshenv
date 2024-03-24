@@ -44,7 +44,7 @@ export GEM_HOME=$HOME/.gem
 export GEM_PATH=$HOME/.gem
 
 # forcing usage of venv to install with pip
-export PIP_REQUIRE_VIRTUALENV=false
+export PIP_REQUIRE_VIRTUALENV=true
 
 # assigning zimfw home variable before being called in ~/.zshrc
 export ZIM_HOME="$HOME/.zim"
