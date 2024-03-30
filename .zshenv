@@ -51,3 +51,6 @@ export ZIM_HOME="$HOME/.zim"
 
 # Adding luarocks to path
 eval "$(luarocks path)"
+
+# adding rye to path
+. "$HOME/.rye/env"

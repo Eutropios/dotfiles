@@ -3,13 +3,14 @@
 # Text editor: Neovim (see config repo)
 # zsh plugin manager: ZimFW
 # zsh plugins: autocomplete, syntax highlighting, atuin,
-# zsh modules: vcs, zmv, compinit, bashcompinit
+# zsh modules: vcs, zmv, compinit, bashcompinit, colors
 # Distribution: Fedora Desktop 39
 # Startup: systemd
 
 # ---***---***---***---***---
 # zmodload zsh/zprof
-# Lines configured by zsh-newuser-install
+
+# general settings
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -17,20 +18,21 @@ setopt autocd beep extendedglob nomatch histignoredups menu_complete prompt_subs
 unsetopt notify
 bindkey -v
 bindkey '^[[Z' reverse-menu-complete
-# End of lines configured by zsh-newuser-install
 
-# Lines added by compinstall
+# changing completion settings
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle :compinstall filename '/home/noahj/.zshrc'
+
+# loading modules
 autoload -Uz compinit vcs_info
 autoload -U zmv bashcompinit colors && colors
 
+# modifying compinit
 fpath+=~/.zfunc
 
 compinit
 bashcompinit
-# End of lines added by compinstall
 
 # ---- Prompt configuration ----
 # VCS info
@@ -87,43 +89,17 @@ bindkey '^r' atuin-search
 eval "$(register-python-argcomplete pipx)"
 
 # Aliases
-alias cat="bat"                # aliasing cat to bat
-alias cls="clear"              # Windows version of clear
-alias diff="delta"             # better diff
-alias ds="dust"                # give dust a shorter name
-alias du="du -h --max-depth=1" # set default for du command
-alias find="fd"                # better find
-alias grep="rg"                # make grep to use ripgrep
-alias ls="lsd"                 # easier lsd alias
-alias py="python3"             # Windows version of python3
-alias python="python3"         # ensuring python3 usage
-alias tree="erd"               # better tree
-alias vim="nvim"               # ensuring usage of neovim
-alias zim="zimfw"              # zimfw package manager for zsh
-alias zj="zellij"              # give zellij a shorter name
-
-#Stabilize videos in directory
-alias stabilize='for a in *.mp4; do ffmpeg -i "$a" -vf vidstabdetect -f null - && ffmpeg -i $a -vf vidstabtransform "stabilized$a" && rm transforms.trf "$a"; done'
-
-# Merge a photo with a song
-alias tothumbnail='ffmpeg -loop 1 -i thumbnail.png -i song.wav -c:v libx265 -c:a aac -b:a 256k -pix_fmt yuv420p -shortest out.mp4'
-
-# Functions
-
-# Blurs background of vertical videos in the directory
-function blurbackground() {
-    for a in *.mp4; do
-        ffmpeg -i "$a" -filter_complex "[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16" "blurred$a"
-        rm "$a"
-    done
-}
-
-# Loop videos in directory for a specific time
-function loopvideo() {
-    for a in *.mp4; do
-        ffmpeg -stream_loop -1 -i "$a" -c:v libx265 -tag:v hvc1 -movflags faststart -vf scale=1268:-2 -t "$1" "looped$a"
-        rm -r "$a"
-    done
-}
-
-#zprof
+alias cat="bat"                         # aliasing cat to bat
+alias cls="clear"                       # Windows version of clear
+alias diff="delta"                      # better diff
+alias ds="dust -X /mnt -X /usr/lib/wsl" # give dust a shorter name
+alias du="du -h --max-depth=1"          # set default for du command
+alias find="fd"                         # better find
+alias grep="rg"                         # make grep to use ripgrep
+alias ls="lsd"                          # easier lsd alias
+alias py="python3"                      # Windows version of python3
+alias python="python3"                  # ensuring python3 usage
+alias tree="erd"                        # better tree
+alias vim="nvim"                        # ensuring usage of neovim
+alias zim="zimfw"                       # zimfw package manager for zsh
+alias zj="zellij"                       # give zellij a shorter name
