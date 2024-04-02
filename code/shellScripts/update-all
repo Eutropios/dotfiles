@@ -21,9 +21,9 @@ update-script() {
 }
 
 declare -a updates=(
-    "update-luarocks"
     "sudo dnf upgrade --refresh"
     "sudo dnf autoremove"
+    "update-luarocks"
     "gem update"
     "gem cleanup"
     "rustup update"
@@ -31,6 +31,7 @@ declare -a updates=(
     "pnpm update -gL"
     "rye self update"
     "pipx upgrade-all"
+    "pip cache purge"
 )
 
 main() {
