@@ -64,7 +64,7 @@ fi
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! "${ZIM_HOME}/init.zsh" -nt "${ZDOTDIR:-${HOME}}/.zimrc" ]]; then
     # shellcheck disable=SC1091
-    . "${ZIM_HOME}/zimfw.zsh init -q"
+    source "${ZIM_HOME}/zimfw.zsh init -q"
 fi
 
 # Initialize modules
