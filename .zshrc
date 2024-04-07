@@ -83,9 +83,6 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 # --- End of ZimFW config ---
 
-eval "$(atuin init zsh)"
-bindkey '^r' atuin-search
-
 eval "$(register-python-argcomplete pipx)"
 
 # Aliases
