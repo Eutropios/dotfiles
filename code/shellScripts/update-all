@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -eo pipefail
-# pip
 
-#TODO: add cli?
+# ---------------
+# Credit for this script goes to https://github.com/killjoy1221
+# I simply added a main function
+# ---------------
+
+# TODO:
+#  * pip
+#  * add cli?
 
 NO_FORMAT="\033[0m"
 C_TEAL="\033[38;5;6m"
