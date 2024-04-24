@@ -25,3 +25,10 @@
 #--map-syntax ".ignore:Git Ignore"
 
 --color="always"
+
+# ensuring root directory files are coloured as well
+--map-syntax "/etc/zshrc:Bourne Again Shell (bash)"
+--map-syntax "/etc/zprofile:Bourne Again Shell (bash)"
+--map-syntax "/etc/zshenv:Bourne Again Shell (bash)"
+--map-syntax "/etc/zlogin:Bourne Again Shell (bash)"
+--map-syntax "/etc/zlogout:Bourne Again Shell (bash)"

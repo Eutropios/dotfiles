@@ -30,8 +30,6 @@ declare -a updates=(
     "sudo dnf upgrade --refresh"
     "sudo dnf autoremove"
     "update-luarocks"
-    "gem update"
-    "gem cleanup"
     "rustup update"
     "cargo-install-update install-update --all"
     "pnpm update -gL"

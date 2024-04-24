@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Fancy little alias to aid in one-step untarring and unzipping
+
+set -eo pipefail
+
+main() {
+    sh -c "tar -zxf $*"
+}
+
+main "$*"

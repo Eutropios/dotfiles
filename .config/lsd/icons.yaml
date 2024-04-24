@@ -4,14 +4,14 @@ name:
   .emacs.d: 
   .gemrc: "\U000F0D2D"
   .histfile: 
+  .stow-local-ignore: 
   .trash: 
   .wget-hsts: 
   .yarnrc: 
   .zcompdump: 
   .zimrc: 
-  .zsh_aliases: 
-  .zshenv: 
-  .zshrc: 
+  .zshenv: 
+  .zshrc: 
   a.out: 
   nvim: 
 extension:

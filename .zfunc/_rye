@@ -1,1967 +1,1406 @@
+#compdef rye
+
+autoload -U is-at-least
+
 _rye() {
-    local i cur prev opts cmd
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-    cmd=""
-    opts=""
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
 
-    for i in ${COMP_WORDS[@]}
-    do
-        case "${cmd},${i}" in
-            ",$1")
-                cmd="rye"
-                ;;
-            rye,add)
-                cmd="rye__add"
-                ;;
-            rye,build)
-                cmd="rye__build"
-                ;;
-            rye,config)
-                cmd="rye__config"
-                ;;
-            rye,fetch)
-                cmd="rye__fetch"
-                ;;
-            rye,fmt)
-                cmd="rye__fmt"
-                ;;
-            rye,help)
-                cmd="rye__help"
-                ;;
-            rye,init)
-                cmd="rye__init"
-                ;;
-            rye,install)
-                cmd="rye__install"
-                ;;
-            rye,lint)
-                cmd="rye__lint"
-                ;;
-            rye,list)
-                cmd="rye__list"
-                ;;
-            rye,lock)
-                cmd="rye__lock"
-                ;;
-            rye,make-req)
-                cmd="rye__make__req"
-                ;;
-            rye,pin)
-                cmd="rye__pin"
-                ;;
-            rye,publish)
-                cmd="rye__publish"
-                ;;
-            rye,remove)
-                cmd="rye__remove"
-                ;;
-            rye,run)
-                cmd="rye__run"
-                ;;
-            rye,self)
-                cmd="rye__self"
-                ;;
-            rye,shell)
-                cmd="rye__shell"
-                ;;
-            rye,show)
-                cmd="rye__show"
-                ;;
-            rye,sync)
-                cmd="rye__sync"
-                ;;
-            rye,test)
-                cmd="rye__test"
-                ;;
-            rye,toolchain)
-                cmd="rye__toolchain"
-                ;;
-            rye,tools)
-                cmd="rye__tools"
-                ;;
-            rye,uninstall)
-                cmd="rye__uninstall"
-                ;;
-            rye,version)
-                cmd="rye__version"
-                ;;
-            rye__help,add)
-                cmd="rye__help__add"
-                ;;
-            rye__help,build)
-                cmd="rye__help__build"
-                ;;
-            rye__help,config)
-                cmd="rye__help__config"
-                ;;
-            rye__help,fetch)
-                cmd="rye__help__fetch"
-                ;;
-            rye__help,fmt)
-                cmd="rye__help__fmt"
-                ;;
-            rye__help,help)
-                cmd="rye__help__help"
-                ;;
-            rye__help,init)
-                cmd="rye__help__init"
-                ;;
-            rye__help,install)
-                cmd="rye__help__install"
-                ;;
-            rye__help,lint)
-                cmd="rye__help__lint"
-                ;;
-            rye__help,list)
-                cmd="rye__help__list"
-                ;;
-            rye__help,lock)
-                cmd="rye__help__lock"
-                ;;
-            rye__help,make-req)
-                cmd="rye__help__make__req"
-                ;;
-            rye__help,pin)
-                cmd="rye__help__pin"
-                ;;
-            rye__help,publish)
-                cmd="rye__help__publish"
-                ;;
-            rye__help,remove)
-                cmd="rye__help__remove"
-                ;;
-            rye__help,run)
-                cmd="rye__help__run"
-                ;;
-            rye__help,self)
-                cmd="rye__help__self"
-                ;;
-            rye__help,shell)
-                cmd="rye__help__shell"
-                ;;
-            rye__help,show)
-                cmd="rye__help__show"
-                ;;
-            rye__help,sync)
-                cmd="rye__help__sync"
-                ;;
-            rye__help,test)
-                cmd="rye__help__test"
-                ;;
-            rye__help,toolchain)
-                cmd="rye__help__toolchain"
-                ;;
-            rye__help,tools)
-                cmd="rye__help__tools"
-                ;;
-            rye__help,uninstall)
-                cmd="rye__help__uninstall"
-                ;;
-            rye__help,version)
-                cmd="rye__help__version"
-                ;;
-            rye__help__self,completion)
-                cmd="rye__help__self__completion"
-                ;;
-            rye__help__self,install)
-                cmd="rye__help__self__install"
-                ;;
-            rye__help__self,uninstall)
-                cmd="rye__help__self__uninstall"
-                ;;
-            rye__help__self,update)
-                cmd="rye__help__self__update"
-                ;;
-            rye__help__toolchain,fetch)
-                cmd="rye__help__toolchain__fetch"
-                ;;
-            rye__help__toolchain,list)
-                cmd="rye__help__toolchain__list"
-                ;;
-            rye__help__toolchain,register)
-                cmd="rye__help__toolchain__register"
-                ;;
-            rye__help__toolchain,remove)
-                cmd="rye__help__toolchain__remove"
-                ;;
-            rye__help__tools,install)
-                cmd="rye__help__tools__install"
-                ;;
-            rye__help__tools,list)
-                cmd="rye__help__tools__list"
-                ;;
-            rye__help__tools,uninstall)
-                cmd="rye__help__tools__uninstall"
-                ;;
-            rye__self,completion)
-                cmd="rye__self__completion"
-                ;;
-            rye__self,help)
-                cmd="rye__self__help"
-                ;;
-            rye__self,install)
-                cmd="rye__self__install"
-                ;;
-            rye__self,uninstall)
-                cmd="rye__self__uninstall"
-                ;;
-            rye__self,update)
-                cmd="rye__self__update"
-                ;;
-            rye__self__help,completion)
-                cmd="rye__self__help__completion"
-                ;;
-            rye__self__help,help)
-                cmd="rye__self__help__help"
-                ;;
-            rye__self__help,install)
-                cmd="rye__self__help__install"
-                ;;
-            rye__self__help,uninstall)
-                cmd="rye__self__help__uninstall"
-                ;;
-            rye__self__help,update)
-                cmd="rye__self__help__update"
-                ;;
-            rye__toolchain,fetch)
-                cmd="rye__toolchain__fetch"
-                ;;
-            rye__toolchain,help)
-                cmd="rye__toolchain__help"
-                ;;
-            rye__toolchain,list)
-                cmd="rye__toolchain__list"
-                ;;
-            rye__toolchain,register)
-                cmd="rye__toolchain__register"
-                ;;
-            rye__toolchain,remove)
-                cmd="rye__toolchain__remove"
-                ;;
-            rye__toolchain__help,fetch)
-                cmd="rye__toolchain__help__fetch"
-                ;;
-            rye__toolchain__help,help)
-                cmd="rye__toolchain__help__help"
-                ;;
-            rye__toolchain__help,list)
-                cmd="rye__toolchain__help__list"
-                ;;
-            rye__toolchain__help,register)
-                cmd="rye__toolchain__help__register"
-                ;;
-            rye__toolchain__help,remove)
-                cmd="rye__toolchain__help__remove"
-                ;;
-            rye__tools,help)
-                cmd="rye__tools__help"
-                ;;
-            rye__tools,install)
-                cmd="rye__tools__install"
-                ;;
-            rye__tools,list)
-                cmd="rye__tools__list"
-                ;;
-            rye__tools,uninstall)
-                cmd="rye__tools__uninstall"
-                ;;
-            rye__tools__help,help)
-                cmd="rye__tools__help__help"
-                ;;
-            rye__tools__help,install)
-                cmd="rye__tools__help__install"
-                ;;
-            rye__tools__help,list)
-                cmd="rye__tools__help__list"
-                ;;
-            rye__tools__help,uninstall)
-                cmd="rye__tools__help__uninstall"
-                ;;
-            *)
-                ;;
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'*--env-file=[Load one or more .env files]:ENV_FILE:_files' \
+'--version[Print the version]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_rye_commands" \
+"*::: :->rye" \
+&& ret=0
+    case $state in
+    (rye)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-command-$line[1]:"
+        case $line[1] in
+            (add)
+_arguments "${_arguments_options[@]}" \
+'--git=[Install the given package from this git repository]:GIT: ' \
+'(--git --path)--url=[Install the given package from this URL]:URL: ' \
+'(--git --url)--path=[Install the given package from this local path]:PATH:_files' \
+'--tag=[Install a specific tag]:TAG: ' \
+'(--tag --branch)--rev=[Update to a specific git rev]:REV: ' \
+'(--tag --rev)--branch=[Update to a specific git branch]:BRANCH: ' \
+'*--features=[Adds a dependency with a specific feature]:FEATURES: ' \
+'(--dev --excluded)--optional=[Add this to an optional dependency group]:OPTIONAL: ' \
+'--pin=[Overrides the pin operator]:PIN:(equal tilde-equal greater-than-equal)' \
+'--absolute[Force non interpolated absolute paths]' \
+'--dev[Add this as dev dependency]' \
+'(--dev --optional)--excluded[Add this as an excluded dependency that will not be installed even if it'\''s a sub dependency]' \
+'--pre[Include pre-releases when finding a package version]' \
+'--sync[Runs \`sync\` even if auto-sync is disabled]' \
+'(--sync)--no-sync[Does not run \`sync\` even if auto-sync is enabled]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'*::requirements -- The package to add as PEP 508 requirement string. e.g. '\''flask==2.2.3'\'':' \
+&& ret=0
+;;
+(build)
+_arguments "${_arguments_options[@]}" \
+'*-p+[Build a specific package]:PACKAGE: ' \
+'*--package=[Build a specific package]:PACKAGE: ' \
+'-o+[An output directory (defaults to \`workspace/dist\`)]:OUT:_files' \
+'--out=[An output directory (defaults to \`workspace/dist\`)]:OUT:_files' \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'--sdist[Build a sdist]' \
+'--wheel[Build a wheel]' \
+'-a[Build all packages]' \
+'--all[Build all packages]' \
+'-c[Clean the output directory first]' \
+'--clean[Clean the output directory first]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(config)
+_arguments "${_arguments_options[@]}" \
+'--format=[Request parseable output format rather than lines]:FORMAT:(json)' \
+'*--get=[Reads a config key]:GET: ' \
+'*--set=[Sets a config key to a string]:SET: ' \
+'*--set-int=[Sets a config key to an integer]:SET_INT: ' \
+'*--set-bool=[Sets a config key to a bool]:SET_BOOL: ' \
+'*--unset=[Remove a config key]:UNSET: ' \
+'--show-path[Print the path to the config]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(fetch)
+_arguments "${_arguments_options[@]}" \
+'--target-path=[Fetches the Python toolchain into an explicit location rather]:TARGET_PATH:_files' \
+'-f[Fetch the Python toolchain even if it is already installed]' \
+'--force[Fetch the Python toolchain even if it is already installed]' \
+'--build-info[Fetches with build info]' \
+'(--build-info)--no-build-info[Fetches without build info]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::version -- The version of Python to fetch:' \
+&& ret=0
+;;
+(fmt)
+_arguments "${_arguments_options[@]}" \
+'*-p+[Perform the operation on a specific package]:PACKAGE: ' \
+'*--package=[Perform the operation on a specific package]:PACKAGE: ' \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-a[Perform the operation on all packages]' \
+'--all[Perform the operation on all packages]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'--check[Run format in check mode]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::paths -- List of files or directories to limit the operation to:_files' \
+&& ret=0
+;;
+(init)
+_arguments "${_arguments_options[@]}" \
+'--min-py=[Minimal Python version supported by this project]:MIN_PY: ' \
+'-p+[Python version to use for the virtualenv]:PY: ' \
+'--py=[Python version to use for the virtualenv]:PY: ' \
+'--build-system=[Which build system should be used (defaults to hatchling)?]:BUILD_SYSTEM:(hatchling setuptools flit pdm maturin)' \
+'--license=[Which license should be used (SPDX identifier)?]:LICENSE: ' \
+'--name=[The name of the package]:NAME: ' \
+'(--no-import)*-r+[Requirements files to initialize pyproject.toml with]:REQUIREMENTS_FILE:_files' \
+'(--no-import)*--requirements=[Requirements files to initialize pyproject.toml with]:REQUIREMENTS_FILE:_files' \
+'(--no-import)*--dev-requirements=[Development requirements files to initialize pyproject.toml with]:DEV_REQUIREMENTS_FILE:_files' \
+'--lib[Generate a library project (default)]' \
+'--script[Generate an executable project]' \
+'--no-readme[Do not create a readme]' \
+'--no-pin[Do not create .python-version file (requires-python will be used)]' \
+'--private[Set "Private \:\: Do Not Upload" classifier, used for private projects]' \
+'--no-import[Don'\''t import from setup.cfg, setup.py, or requirements files]' \
+'--virtual[Initialize this as a virtual package]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::path -- Where to place the project (defaults to current path):_files' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+'--git=[Install the given package from this git repository]:GIT: ' \
+'(--git --path)--url=[Install the given package from this URL]:URL: ' \
+'(--git --url)--path=[Install the given package from this local path]:PATH:_files' \
+'--tag=[Install a specific tag]:TAG: ' \
+'(--tag --branch)--rev=[Update to a specific git rev]:REV: ' \
+'(--tag --rev)--branch=[Update to a specific git branch]:BRANCH: ' \
+'*--features=[Adds a dependency with a specific feature]:FEATURES: ' \
+'*--include-dep=[Include scripts from a given dependency]:INCLUDE_DEP: ' \
+'*--extra-requirement=[Additional dependencies to install that are not declared by the main package]:EXTRA_REQUIREMENT: ' \
+'-p+[Optionally the Python version to use]:PYTHON: ' \
+'--python=[Optionally the Python version to use]:PYTHON: ' \
+'--absolute[Force non interpolated absolute paths]' \
+'-f[Force install the package even if it'\''s already there]' \
+'--force[Force install the package even if it'\''s already there]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':requirement -- The name of the package to install:' \
+&& ret=0
+;;
+(lock)
+_arguments "${_arguments_options[@]}" \
+'*--update=[Update a specific package]:UPDATE: ' \
+'*--features=[Extras/features to enable when locking the workspace]:FEATURES: ' \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'--update-all[Update all packages to the latest]' \
+'--pre[Update to pre-release versions]' \
+'--all-features[Enables all features]' \
+'--with-sources[Set to true to lock with sources in the lockfile]' \
+'--reset[Reset prior lock options]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(lint)
+_arguments "${_arguments_options[@]}" \
+'*-p+[Perform the operation on a specific package]:PACKAGE: ' \
+'*--package=[Perform the operation on a specific package]:PACKAGE: ' \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-a[Perform the operation on all packages]' \
+'--all[Perform the operation on all packages]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'--fix[Apply fixes]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::paths -- List of files or directories to limit the operation to:_files' \
+&& ret=0
+;;
+(make-req)
+_arguments "${_arguments_options[@]}" \
+'--git=[Install the given package from this git repository]:GIT: ' \
+'(--git --path)--url=[Install the given package from this URL]:URL: ' \
+'(--git --url)--path=[Install the given package from this local path]:PATH:_files' \
+'--tag=[Install a specific tag]:TAG: ' \
+'(--tag --branch)--rev=[Update to a specific git rev]:REV: ' \
+'(--tag --rev)--branch=[Update to a specific git branch]:BRANCH: ' \
+'*--features=[Adds a dependency with a specific feature]:FEATURES: ' \
+'--absolute[Force non interpolated absolute paths]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'*::requirements -- The package to add as PEP 508 requirement string. e.g. '\''flask==2.2.3'\'':' \
+&& ret=0
+;;
+(pin)
+_arguments "${_arguments_options[@]}" \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'--relaxed[Issue a relaxed pin]' \
+'--no-update-requires-python[Prevent updating requires-python in the pyproject.toml]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':version -- The version of Python to pin:' \
+&& ret=0
+;;
+(publish)
+_arguments "${_arguments_options[@]}" \
+'-r+[The repository to publish to]:REPOSITORY: ' \
+'--repository=[The repository to publish to]:REPOSITORY: ' \
+'--repository-url=[The repository url to publish to]:REPOSITORY_URL: ' \
+'-u+[The username to authenticate to the repository with]:USERNAME: ' \
+'--username=[The username to authenticate to the repository with]:USERNAME: ' \
+'--token=[An access token used for the upload]:TOKEN: ' \
+'-i+[GPG identity used to sign files]:IDENTITY: ' \
+'--identity=[GPG identity used to sign files]:IDENTITY: ' \
+'--cert=[Path to alternate CA bundle]:CERT:_files' \
+'--sign[Sign files to upload using GPG]' \
+'--skip-existing[Skip files that have already been published (only applies to repositories supporting this feature)]' \
+'-y[Skip prompts]' \
+'--yes[Skip prompts]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'*::dist -- The distribution files to upload to the repository (defaults to <workspace-root>/dist/*):_files' \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+'(--dev)--optional=[Remove this from an optional dependency group]:OPTIONAL: ' \
+'--dev[Remove this from dev dependencies]' \
+'--sync[Runs \`sync\` even if auto-sync is disabled]' \
+'(--sync)--no-sync[Does not run \`sync\` even if auto-sync is enabled]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'*::requirements -- The packages to remove:' \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-l[List all commands]' \
+'--list[List all commands]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'--installed-deps[Print the installed dependencies from the venv]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+'*--update=[Update a specific package]:UPDATE: ' \
+'*--features=[Extras/features to enable when synching the workspace]:FEATURES: ' \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-f[Force the environment to be re-created]' \
+'--force[Force the environment to be re-created]' \
+'--no-dev[Do not include dev dependencies]' \
+'--no-lock[Do not update the lockfile]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'--update-all[Update all packages to the latest]' \
+'--pre[Update to pre-release versions]' \
+'--all-features[Enables all features]' \
+'--with-sources[Set to true to lock with sources in the lockfile]' \
+'--reset[Do not reuse (reset) prior lock options]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(test)
+_arguments "${_arguments_options[@]}" \
+'*-p+[Perform the operation on a specific package]:PACKAGE: ' \
+'*--package=[Perform the operation on a specific package]:PACKAGE: ' \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-a[Perform the operation on all packages]' \
+'--all[Perform the operation on all packages]' \
+'-s[]' \
+'--no-capture[]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::extra_args -- Extra arguments to pytest:' \
+&& ret=0
+;;
+(toolchain)
+_arguments "${_arguments_options[@]}" \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_rye__toolchain_commands" \
+"*::: :->toolchain" \
+&& ret=0
+
+    case $state in
+    (toolchain)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-toolchain-command-$line[1]:"
+        case $line[1] in
+            (fetch)
+_arguments "${_arguments_options[@]}" \
+'--target-path=[Fetches the Python toolchain into an explicit location rather]:TARGET_PATH:_files' \
+'-f[Fetch the Python toolchain even if it is already installed]' \
+'--force[Fetch the Python toolchain even if it is already installed]' \
+'--build-info[Fetches with build info]' \
+'(--build-info)--no-build-info[Fetches without build info]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::version -- The version of Python to fetch:' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'--format=[Request parseable output format]:FORMAT:(json)' \
+'--include-downloadable[Also include non installed, but downloadable toolchains]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(register)
+_arguments "${_arguments_options[@]}" \
+'-n+[Name of the toolchain.  If not provided a name is auto detected]:NAME: ' \
+'--name=[Name of the toolchain.  If not provided a name is auto detected]:NAME: ' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':path -- Path to the Python binary:_files' \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+'-f[Force removal even if the toolchain is in use]' \
+'--force[Force removal even if the toolchain is in use]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':version -- Name and version of the toolchain:' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__toolchain__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-toolchain-help-command-$line[1]:"
+        case $line[1] in
+            (fetch)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(register)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
         esac
-    done
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(tools)
+_arguments "${_arguments_options[@]}" \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_rye__tools_commands" \
+"*::: :->tools" \
+&& ret=0
 
-    case "${cmd}" in
-        rye)
-            opts="-h --env-file --version --help add build config fetch fmt init install lock lint make-req pin publish remove run show sync test toolchain tools self uninstall version list shell help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --env-file)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__add)
-            opts="-v -q -h --git --url --path --absolute --tag --rev --branch --features --dev --excluded --optional --pre --pin --sync --no-sync --verbose --quiet --help <REQUIREMENTS>..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --git)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --url)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --path)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --tag)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --rev)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --branch)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --features)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --optional)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pin)
-                    COMPREPLY=($(compgen -W "equal tilde-equal greater-than-equal" -- "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__build)
-            opts="-a -p -o -c -v -q -h --sdist --wheel --all --package --out --pyproject --clean --verbose --quiet --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --package)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --out)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -o)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__config)
-            opts="-h --show-path --format --get --set --set-int --set-bool --unset --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --format)
-                    COMPREPLY=($(compgen -W "json" -- "${cur}"))
-                    return 0
-                    ;;
-                --get)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --set)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --set-int)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --set-bool)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --unset)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__fetch)
-            opts="-f -v -q -h --force --target-path --build-info --no-build-info --verbose --quiet --help [VERSION]"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --target-path)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__fmt)
-            opts="-a -p -v -q -h --all --package --pyproject --verbose --quiet --check --help [PATHS]... [EXTRA_ARGS]..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --package)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help)
-            opts="add build config fetch fmt init install lock lint make-req pin publish remove run show sync test toolchain tools self uninstall version list shell help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__add)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__build)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__config)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__fetch)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__fmt)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__help)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__init)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__install)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__lint)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__list)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__lock)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__make__req)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__pin)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__publish)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__remove)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__run)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__self)
-            opts="completion update install uninstall"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__self__completion)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__self__install)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__self__uninstall)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__self__update)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__shell)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__show)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__sync)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__test)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__toolchain)
-            opts="fetch list register remove"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__toolchain__fetch)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__toolchain__list)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__toolchain__register)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__toolchain__remove)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__tools)
-            opts="install uninstall list"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__tools__install)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__tools__list)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__tools__uninstall)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__uninstall)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__help__version)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__init)
-            opts="-p -r -v -q -h --lib --script --min-py --py --no-readme --no-pin --build-system --license --name --private --no-import --virtual --requirements --dev-requirements --verbose --quiet --help [PATH]"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --min-py)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --py)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --build-system)
-                    COMPREPLY=($(compgen -W "hatchling setuptools flit pdm maturin" -- "${cur}"))
-                    return 0
-                    ;;
-                --license)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --name)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --requirements)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -r)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --dev-requirements)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__install)
-            opts="-p -f -v -q -h --git --url --path --absolute --tag --rev --branch --features --include-dep --extra-requirement --python --force --verbose --quiet --help <REQUIREMENT>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --git)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --url)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --path)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --tag)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --rev)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --branch)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --features)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --include-dep)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --extra-requirement)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --python)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__lint)
-            opts="-a -p -v -q -h --all --package --pyproject --verbose --quiet --fix --help [PATHS]... [EXTRA_ARGS]..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --package)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__list)
-            opts="-h --pyproject --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__lock)
-            opts="-v -q -h --verbose --quiet --update --update-all --pre --features --all-features --with-sources --reset --pyproject --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --update)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --features)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__make__req)
-            opts="-h --git --url --path --absolute --tag --rev --branch --features --help [REQUIREMENTS]..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --git)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --url)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --path)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --tag)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --rev)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --branch)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --features)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__pin)
-            opts="-h --relaxed --no-update-requires-python --pyproject --help <VERSION>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__publish)
-            opts="-r -u -i -y -v -q -h --repository --repository-url --username --token --sign --identity --cert --skip-existing --yes --verbose --quiet --help [DIST]..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --repository)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -r)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --repository-url)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --username)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -u)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --token)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --identity)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -i)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --cert)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__remove)
-            opts="-v -q -h --dev --optional --sync --no-sync --verbose --quiet --help <REQUIREMENTS>..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --optional)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__run)
-            opts="-l -h --list --pyproject --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self)
-            opts="-h --help completion update install uninstall help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__completion)
-            opts="-s -h --shell --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --shell)
-                    COMPREPLY=($(compgen -W "bash elvish fish powershell zsh" -- "${cur}"))
-                    return 0
-                    ;;
-                -s)
-                    COMPREPLY=($(compgen -W "bash elvish fish powershell zsh" -- "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__help)
-            opts="completion update install uninstall help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__help__completion)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__help__help)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__help__install)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__help__uninstall)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__help__update)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__install)
-            opts="-y -h --yes --toolchain --toolchain-version --modify-path --no-modify-path --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --toolchain)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --toolchain-version)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__uninstall)
-            opts="-y -h --yes --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__self__update)
-            opts="-h --version --tag --rev --branch --force --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --version)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --tag)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --rev)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --branch)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__shell)
-            opts="-h --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__show)
-            opts="-h --installed-deps --pyproject --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__sync)
-            opts="-f -v -q -h --force --no-dev --no-lock --verbose --quiet --update --update-all --pre --features --all-features --with-sources --pyproject --reset --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --update)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --features)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__test)
-            opts="-a -p -s -v -q -h --all --package --pyproject --no-capture --verbose --quiet --help [EXTRA_ARGS]..."
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --package)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --pyproject)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain)
-            opts="-h --help fetch list register remove help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__fetch)
-            opts="-f -v -q -h --force --target-path --build-info --no-build-info --verbose --quiet --help [VERSION]"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --target-path)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__help)
-            opts="fetch list register remove help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__help__fetch)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__help__help)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__help__list)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__help__register)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__help__remove)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__list)
-            opts="-h --include-downloadable --format --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --format)
-                    COMPREPLY=($(compgen -W "json" -- "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__register)
-            opts="-n -h --name --help <PATH>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --name)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -n)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__toolchain__remove)
-            opts="-f -h --force --help <VERSION>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools)
-            opts="-h --help install uninstall list help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__help)
-            opts="install uninstall list help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__help__help)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__help__install)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__help__list)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__help__uninstall)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__install)
-            opts="-p -f -v -q -h --git --url --path --absolute --tag --rev --branch --features --include-dep --extra-requirement --python --force --verbose --quiet --help <REQUIREMENT>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --git)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --url)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --path)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --tag)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --rev)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --branch)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --features)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --include-dep)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --extra-requirement)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                --python)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                -p)
-                    COMPREPLY=($(compgen -f "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__list)
-            opts="-s -v -h --include-scripts --include-version --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__tools__uninstall)
-            opts="-v -q -h --verbose --quiet --help <NAME>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__uninstall)
-            opts="-v -q -h --verbose --quiet --help <NAME>"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        rye__version)
-            opts="-b -h --bump --help [VERSION]"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --bump)
-                    COMPREPLY=($(compgen -W "major minor patch" -- "${cur}"))
-                    return 0
-                    ;;
-                -b)
-                    COMPREPLY=($(compgen -W "major minor patch" -- "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-    esac
+    case $state in
+    (tools)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-tools-command-$line[1]:"
+        case $line[1] in
+            (install)
+_arguments "${_arguments_options[@]}" \
+'--git=[Install the given package from this git repository]:GIT: ' \
+'(--git --path)--url=[Install the given package from this URL]:URL: ' \
+'(--git --url)--path=[Install the given package from this local path]:PATH:_files' \
+'--tag=[Install a specific tag]:TAG: ' \
+'(--tag --branch)--rev=[Update to a specific git rev]:REV: ' \
+'(--tag --rev)--branch=[Update to a specific git branch]:BRANCH: ' \
+'*--features=[Adds a dependency with a specific feature]:FEATURES: ' \
+'*--include-dep=[Include scripts from a given dependency]:INCLUDE_DEP: ' \
+'*--extra-requirement=[Additional dependencies to install that are not declared by the main package]:EXTRA_REQUIREMENT: ' \
+'-p+[Optionally the Python version to use]:PYTHON: ' \
+'--python=[Optionally the Python version to use]:PYTHON: ' \
+'--absolute[Force non interpolated absolute paths]' \
+'-f[Force install the package even if it'\''s already there]' \
+'--force[Force install the package even if it'\''s already there]' \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':requirement -- The name of the package to install:' \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':name -- The package to uninstall:' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'-s[Show all the scripts installed by the tools]' \
+'--include-scripts[Show all the scripts installed by the tools]' \
+'-v[Show the version of tools]' \
+'--include-version[Show the version of tools]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__tools__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-tools-help-command-$line[1]:"
+        case $line[1] in
+            (install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(self)
+_arguments "${_arguments_options[@]}" \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_rye__self_commands" \
+"*::: :->self" \
+&& ret=0
+
+    case $state in
+    (self)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-self-command-$line[1]:"
+        case $line[1] in
+            (completion)
+_arguments "${_arguments_options[@]}" \
+'-s+[The shell to generate a completion script for (defaults to '\''bash'\'')]:SHELL:(bash elvish fish powershell zsh)' \
+'--shell=[The shell to generate a completion script for (defaults to '\''bash'\'')]:SHELL:(bash elvish fish powershell zsh)' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" \
+'--version=[Update to a specific version]:VERSION: ' \
+'--tag=[Update to a specific tag]:TAG: ' \
+'(--tag)--rev=[Update to a specific git rev]:REV: ' \
+'(--tag --rev)--branch=[Update to a specific git branch]:BRANCH: ' \
+'--force[Force reinstallation]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+'--toolchain=[Register a specific toolchain before bootstrap]:TOOLCHAIN:_files' \
+'--toolchain-version=[Use a specific toolchain version]:TOOLCHAIN_VERSION: ' \
+'-y[Skip prompts]' \
+'--yes[Skip prompts]' \
+'--modify-path[Always modify without asking the PATH environment variable]' \
+'--no-modify-path[Do not modify the PATH environment variable]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+'-y[Skip safety check]' \
+'--yes[Skip safety check]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__self__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-self-help-command-$line[1]:"
+        case $line[1] in
+            (completion)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+'-v[Enables verbose diagnostics]' \
+'--verbose[Enables verbose diagnostics]' \
+'(-v --verbose)-q[Turns off all output]' \
+'(-v --verbose)--quiet[Turns off all output]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':name -- The package to uninstall:' \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+'-b+[The version bump to apply]:BUMP:(major minor patch)' \
+'--bump=[The version bump to apply]:BUMP:(major minor patch)' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::version -- The version to set:' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'--pyproject=[Use this pyproject.toml file]:PYPROJECT_TOML:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(shell)
+_arguments "${_arguments_options[@]}" \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-help-command-$line[1]:"
+        case $line[1] in
+            (add)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(build)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(config)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(fetch)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(fmt)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(init)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(lock)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(lint)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(make-req)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(pin)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(publish)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(test)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(toolchain)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__help__toolchain_commands" \
+"*::: :->toolchain" \
+&& ret=0
+
+    case $state in
+    (toolchain)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-help-toolchain-command-$line[1]:"
+        case $line[1] in
+            (fetch)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(register)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(tools)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__help__tools_commands" \
+"*::: :->tools" \
+&& ret=0
+
+    case $state in
+    (tools)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-help-tools-command-$line[1]:"
+        case $line[1] in
+            (install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(self)
+_arguments "${_arguments_options[@]}" \
+":: :_rye__help__self_commands" \
+"*::: :->self" \
+&& ret=0
+
+    case $state in
+    (self)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:rye-help-self-command-$line[1]:"
+        case $line[1] in
+            (completion)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(shell)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
 }
 
-if [[ "${BASH_VERSINFO[0]}" -eq 4 && "${BASH_VERSINFO[1]}" -ge 4 || "${BASH_VERSINFO[0]}" -gt 4 ]]; then
-    complete -F _rye -o nosort -o bashdefault -o default rye
+(( $+functions[_rye_commands] )) ||
+_rye_commands() {
+    local commands; commands=(
+'add:Adds a Python package to this project' \
+'build:Builds a package for distribution' \
+'config:Reads or modifies the global \`config.toml\` file' \
+'fetch:Fetches a Python interpreter for the local machine. This is an alias of \`rye toolchain fetch\`' \
+'fmt:Run the code formatter on the project' \
+'init:Initialize a new or existing Python project with Rye' \
+'install:Installs a package as global tool. This is an alias of \`rye tools install\`' \
+'lock:Updates the lockfiles without installing dependencies' \
+'lint:Run the linter on the project' \
+'make-req:Builds and prints a PEP 508 requirement string from parts' \
+'pin:Pins a Python version to this project' \
+'publish:Publish packages to a package repository' \
+'remove:Removes a package from this project' \
+'run:Runs a command installed into this package' \
+'show:Prints the current state of the project' \
+'sync:Updates the virtualenv based on the pyproject.toml' \
+'test:Run the tests on the project' \
+'toolchain:Helper utility to manage Python toolchains' \
+'tools:Helper utility to manage global tools' \
+'self:Rye self management' \
+'uninstall:Uninstalls a global tool. This is an alias of \`rye tools uninstall\`' \
+'version:Get or set project version' \
+'list:Prints the currently installed packages' \
+'shell:The shell command was removed' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye commands' commands "$@"
+}
+(( $+functions[_rye__add_commands] )) ||
+_rye__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye add commands' commands "$@"
+}
+(( $+functions[_rye__help__add_commands] )) ||
+_rye__help__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help add commands' commands "$@"
+}
+(( $+functions[_rye__build_commands] )) ||
+_rye__build_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye build commands' commands "$@"
+}
+(( $+functions[_rye__help__build_commands] )) ||
+_rye__help__build_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help build commands' commands "$@"
+}
+(( $+functions[_rye__help__self__completion_commands] )) ||
+_rye__help__self__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help self completion commands' commands "$@"
+}
+(( $+functions[_rye__self__completion_commands] )) ||
+_rye__self__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self completion commands' commands "$@"
+}
+(( $+functions[_rye__self__help__completion_commands] )) ||
+_rye__self__help__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self help completion commands' commands "$@"
+}
+(( $+functions[_rye__config_commands] )) ||
+_rye__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye config commands' commands "$@"
+}
+(( $+functions[_rye__help__config_commands] )) ||
+_rye__help__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help config commands' commands "$@"
+}
+(( $+functions[_rye__fetch_commands] )) ||
+_rye__fetch_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye fetch commands' commands "$@"
+}
+(( $+functions[_rye__help__fetch_commands] )) ||
+_rye__help__fetch_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help fetch commands' commands "$@"
+}
+(( $+functions[_rye__help__toolchain__fetch_commands] )) ||
+_rye__help__toolchain__fetch_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help toolchain fetch commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__fetch_commands] )) ||
+_rye__toolchain__fetch_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain fetch commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__help__fetch_commands] )) ||
+_rye__toolchain__help__fetch_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain help fetch commands' commands "$@"
+}
+(( $+functions[_rye__fmt_commands] )) ||
+_rye__fmt_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye fmt commands' commands "$@"
+}
+(( $+functions[_rye__help__fmt_commands] )) ||
+_rye__help__fmt_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help fmt commands' commands "$@"
+}
+(( $+functions[_rye__help_commands] )) ||
+_rye__help_commands() {
+    local commands; commands=(
+'add:Adds a Python package to this project' \
+'build:Builds a package for distribution' \
+'config:Reads or modifies the global \`config.toml\` file' \
+'fetch:Fetches a Python interpreter for the local machine. This is an alias of \`rye toolchain fetch\`' \
+'fmt:Run the code formatter on the project' \
+'init:Initialize a new or existing Python project with Rye' \
+'install:Installs a package as global tool. This is an alias of \`rye tools install\`' \
+'lock:Updates the lockfiles without installing dependencies' \
+'lint:Run the linter on the project' \
+'make-req:Builds and prints a PEP 508 requirement string from parts' \
+'pin:Pins a Python version to this project' \
+'publish:Publish packages to a package repository' \
+'remove:Removes a package from this project' \
+'run:Runs a command installed into this package' \
+'show:Prints the current state of the project' \
+'sync:Updates the virtualenv based on the pyproject.toml' \
+'test:Run the tests on the project' \
+'toolchain:Helper utility to manage Python toolchains' \
+'tools:Helper utility to manage global tools' \
+'self:Rye self management' \
+'uninstall:Uninstalls a global tool. This is an alias of \`rye tools uninstall\`' \
+'version:Get or set project version' \
+'list:Prints the currently installed packages' \
+'shell:The shell command was removed' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye help commands' commands "$@"
+}
+(( $+functions[_rye__help__help_commands] )) ||
+_rye__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help help commands' commands "$@"
+}
+(( $+functions[_rye__self__help_commands] )) ||
+_rye__self__help_commands() {
+    local commands; commands=(
+'completion:Generates a completion script for a shell' \
+'update:Performs an update of rye' \
+'install:Triggers the initial installation of Rye' \
+'uninstall:Uninstalls rye again' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye self help commands' commands "$@"
+}
+(( $+functions[_rye__self__help__help_commands] )) ||
+_rye__self__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self help help commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__help_commands] )) ||
+_rye__toolchain__help_commands() {
+    local commands; commands=(
+'fetch:Fetches a Python interpreter for the local machine. This is an alias of \`rye toolchain fetch\`' \
+'list:List all registered toolchains' \
+'register:Register a Python binary' \
+'remove:Removes a toolchain' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye toolchain help commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__help__help_commands] )) ||
+_rye__toolchain__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain help help commands' commands "$@"
+}
+(( $+functions[_rye__tools__help_commands] )) ||
+_rye__tools__help_commands() {
+    local commands; commands=(
+'install:Installs a package as global tool. This is an alias of \`rye tools install\`' \
+'uninstall:Uninstalls a global tool. This is an alias of \`rye tools uninstall\`' \
+'list:List all registered tools' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye tools help commands' commands "$@"
+}
+(( $+functions[_rye__tools__help__help_commands] )) ||
+_rye__tools__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools help help commands' commands "$@"
+}
+(( $+functions[_rye__help__init_commands] )) ||
+_rye__help__init_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help init commands' commands "$@"
+}
+(( $+functions[_rye__init_commands] )) ||
+_rye__init_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye init commands' commands "$@"
+}
+(( $+functions[_rye__help__install_commands] )) ||
+_rye__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help install commands' commands "$@"
+}
+(( $+functions[_rye__help__self__install_commands] )) ||
+_rye__help__self__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help self install commands' commands "$@"
+}
+(( $+functions[_rye__help__tools__install_commands] )) ||
+_rye__help__tools__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help tools install commands' commands "$@"
+}
+(( $+functions[_rye__install_commands] )) ||
+_rye__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye install commands' commands "$@"
+}
+(( $+functions[_rye__self__help__install_commands] )) ||
+_rye__self__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self help install commands' commands "$@"
+}
+(( $+functions[_rye__self__install_commands] )) ||
+_rye__self__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self install commands' commands "$@"
+}
+(( $+functions[_rye__tools__help__install_commands] )) ||
+_rye__tools__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools help install commands' commands "$@"
+}
+(( $+functions[_rye__tools__install_commands] )) ||
+_rye__tools__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools install commands' commands "$@"
+}
+(( $+functions[_rye__help__lint_commands] )) ||
+_rye__help__lint_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help lint commands' commands "$@"
+}
+(( $+functions[_rye__lint_commands] )) ||
+_rye__lint_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye lint commands' commands "$@"
+}
+(( $+functions[_rye__help__list_commands] )) ||
+_rye__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help list commands' commands "$@"
+}
+(( $+functions[_rye__help__toolchain__list_commands] )) ||
+_rye__help__toolchain__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help toolchain list commands' commands "$@"
+}
+(( $+functions[_rye__help__tools__list_commands] )) ||
+_rye__help__tools__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help tools list commands' commands "$@"
+}
+(( $+functions[_rye__list_commands] )) ||
+_rye__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye list commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__help__list_commands] )) ||
+_rye__toolchain__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain help list commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__list_commands] )) ||
+_rye__toolchain__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain list commands' commands "$@"
+}
+(( $+functions[_rye__tools__help__list_commands] )) ||
+_rye__tools__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools help list commands' commands "$@"
+}
+(( $+functions[_rye__tools__list_commands] )) ||
+_rye__tools__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools list commands' commands "$@"
+}
+(( $+functions[_rye__help__lock_commands] )) ||
+_rye__help__lock_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help lock commands' commands "$@"
+}
+(( $+functions[_rye__lock_commands] )) ||
+_rye__lock_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye lock commands' commands "$@"
+}
+(( $+functions[_rye__help__make-req_commands] )) ||
+_rye__help__make-req_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help make-req commands' commands "$@"
+}
+(( $+functions[_rye__make-req_commands] )) ||
+_rye__make-req_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye make-req commands' commands "$@"
+}
+(( $+functions[_rye__help__pin_commands] )) ||
+_rye__help__pin_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help pin commands' commands "$@"
+}
+(( $+functions[_rye__pin_commands] )) ||
+_rye__pin_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye pin commands' commands "$@"
+}
+(( $+functions[_rye__help__publish_commands] )) ||
+_rye__help__publish_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help publish commands' commands "$@"
+}
+(( $+functions[_rye__publish_commands] )) ||
+_rye__publish_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye publish commands' commands "$@"
+}
+(( $+functions[_rye__help__toolchain__register_commands] )) ||
+_rye__help__toolchain__register_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help toolchain register commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__help__register_commands] )) ||
+_rye__toolchain__help__register_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain help register commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__register_commands] )) ||
+_rye__toolchain__register_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain register commands' commands "$@"
+}
+(( $+functions[_rye__help__remove_commands] )) ||
+_rye__help__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help remove commands' commands "$@"
+}
+(( $+functions[_rye__help__toolchain__remove_commands] )) ||
+_rye__help__toolchain__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help toolchain remove commands' commands "$@"
+}
+(( $+functions[_rye__remove_commands] )) ||
+_rye__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye remove commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__help__remove_commands] )) ||
+_rye__toolchain__help__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain help remove commands' commands "$@"
+}
+(( $+functions[_rye__toolchain__remove_commands] )) ||
+_rye__toolchain__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye toolchain remove commands' commands "$@"
+}
+(( $+functions[_rye__help__run_commands] )) ||
+_rye__help__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help run commands' commands "$@"
+}
+(( $+functions[_rye__run_commands] )) ||
+_rye__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye run commands' commands "$@"
+}
+(( $+functions[_rye__help__self_commands] )) ||
+_rye__help__self_commands() {
+    local commands; commands=(
+'completion:Generates a completion script for a shell' \
+'update:Performs an update of rye' \
+'install:Triggers the initial installation of Rye' \
+'uninstall:Uninstalls rye again' \
+    )
+    _describe -t commands 'rye help self commands' commands "$@"
+}
+(( $+functions[_rye__self_commands] )) ||
+_rye__self_commands() {
+    local commands; commands=(
+'completion:Generates a completion script for a shell' \
+'update:Performs an update of rye' \
+'install:Triggers the initial installation of Rye' \
+'uninstall:Uninstalls rye again' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye self commands' commands "$@"
+}
+(( $+functions[_rye__help__shell_commands] )) ||
+_rye__help__shell_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help shell commands' commands "$@"
+}
+(( $+functions[_rye__shell_commands] )) ||
+_rye__shell_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye shell commands' commands "$@"
+}
+(( $+functions[_rye__help__show_commands] )) ||
+_rye__help__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help show commands' commands "$@"
+}
+(( $+functions[_rye__show_commands] )) ||
+_rye__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye show commands' commands "$@"
+}
+(( $+functions[_rye__help__sync_commands] )) ||
+_rye__help__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help sync commands' commands "$@"
+}
+(( $+functions[_rye__sync_commands] )) ||
+_rye__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye sync commands' commands "$@"
+}
+(( $+functions[_rye__help__test_commands] )) ||
+_rye__help__test_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help test commands' commands "$@"
+}
+(( $+functions[_rye__test_commands] )) ||
+_rye__test_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye test commands' commands "$@"
+}
+(( $+functions[_rye__help__toolchain_commands] )) ||
+_rye__help__toolchain_commands() {
+    local commands; commands=(
+'fetch:Fetches a Python interpreter for the local machine. This is an alias of \`rye toolchain fetch\`' \
+'list:List all registered toolchains' \
+'register:Register a Python binary' \
+'remove:Removes a toolchain' \
+    )
+    _describe -t commands 'rye help toolchain commands' commands "$@"
+}
+(( $+functions[_rye__toolchain_commands] )) ||
+_rye__toolchain_commands() {
+    local commands; commands=(
+'fetch:Fetches a Python interpreter for the local machine. This is an alias of \`rye toolchain fetch\`' \
+'list:List all registered toolchains' \
+'register:Register a Python binary' \
+'remove:Removes a toolchain' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye toolchain commands' commands "$@"
+}
+(( $+functions[_rye__help__tools_commands] )) ||
+_rye__help__tools_commands() {
+    local commands; commands=(
+'install:Installs a package as global tool. This is an alias of \`rye tools install\`' \
+'uninstall:Uninstalls a global tool. This is an alias of \`rye tools uninstall\`' \
+'list:List all registered tools' \
+    )
+    _describe -t commands 'rye help tools commands' commands "$@"
+}
+(( $+functions[_rye__tools_commands] )) ||
+_rye__tools_commands() {
+    local commands; commands=(
+'install:Installs a package as global tool. This is an alias of \`rye tools install\`' \
+'uninstall:Uninstalls a global tool. This is an alias of \`rye tools uninstall\`' \
+'list:List all registered tools' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'rye tools commands' commands "$@"
+}
+(( $+functions[_rye__help__self__uninstall_commands] )) ||
+_rye__help__self__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help self uninstall commands' commands "$@"
+}
+(( $+functions[_rye__help__tools__uninstall_commands] )) ||
+_rye__help__tools__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help tools uninstall commands' commands "$@"
+}
+(( $+functions[_rye__help__uninstall_commands] )) ||
+_rye__help__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help uninstall commands' commands "$@"
+}
+(( $+functions[_rye__self__help__uninstall_commands] )) ||
+_rye__self__help__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self help uninstall commands' commands "$@"
+}
+(( $+functions[_rye__self__uninstall_commands] )) ||
+_rye__self__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self uninstall commands' commands "$@"
+}
+(( $+functions[_rye__tools__help__uninstall_commands] )) ||
+_rye__tools__help__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools help uninstall commands' commands "$@"
+}
+(( $+functions[_rye__tools__uninstall_commands] )) ||
+_rye__tools__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye tools uninstall commands' commands "$@"
+}
+(( $+functions[_rye__uninstall_commands] )) ||
+_rye__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye uninstall commands' commands "$@"
+}
+(( $+functions[_rye__help__self__update_commands] )) ||
+_rye__help__self__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help self update commands' commands "$@"
+}
+(( $+functions[_rye__self__help__update_commands] )) ||
+_rye__self__help__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self help update commands' commands "$@"
+}
+(( $+functions[_rye__self__update_commands] )) ||
+_rye__self__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye self update commands' commands "$@"
+}
+(( $+functions[_rye__help__version_commands] )) ||
+_rye__help__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye help version commands' commands "$@"
+}
+(( $+functions[_rye__version_commands] )) ||
+_rye__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'rye version commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_rye" ]; then
+    _rye "$@"
 else
-    complete -F _rye -o bashdefault -o default rye
+    compdef _rye rye
 fi

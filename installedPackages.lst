@@ -1,246 +1,233 @@
-Installed Packages
-annobin-docs.noarch                         12.42-1.fc39                           @updates
-annobin-plugin-gcc.x86_64                   12.42-1.fc39                           @updates
-apr.x86_64                                  1.7.3-2.fc39                           @fedora
-at.x86_64                                   3.2.5-7.fc39                           @fedora
-atk.x86_64                                  2.50.2-1.fc39                          @updates
-authselect.x86_64                           1.4.3-1.fc39                           @fedora
-autoconf.noarch                             2.71-6.fc39                            @fedora
-automake.noarch                             1.16.5-13.fc39                         @fedora
-basesystem.noarch                           11-18.fc39                             @fedora
-bash.x86_64                                 5.2.26-1.fc39                          @updates
-bash-completion.noarch                      1:2.11-12.fc39                         @fedora
-bind-license.noarch                         32:9.18.24-1.fc39                      @updates
-binutils.x86_64                             2.40-14.fc39                           @updates
-bison.x86_64                                3.8.2-5.fc39                           @fedora
-brotli.x86_64                               1.1.0-1.fc39                           @fedora
-ca-certificates.noarch                      2023.2.60_v7.0.306-2.fc39              @fedora
-cairo.x86_64                                1.18.0-1.fc39                          @fedora
-cairo-gobject.x86_64                        1.18.0-1.fc39                          @fedora
-catimg.x86_64                               2.7.0-9.fc39                           @fedora
-clang.x86_64                                17.0.6-2.fc39                          @updates
-cloc.noarch                                 1.90-7.fc39                            @fedora
-cmake.x86_64                                3.27.7-1.fc39                          @fedora
-codec2.x86_64                               1.2.0-2.fc39                           @fedora
-coreutils.x86_64                            9.3-5.fc39                             @updates
-cpio.x86_64                                 2.14-4.fc39                            @fedora
-cpp.x86_64                                  13.2.1-7.fc39                          @updates
-crontabs.noarch                             1.11-30.20190603git.fc39               @fedora
-crypto-policies.noarch                      20231204-1.git1e3a2e4.fc39             @updates
-ctags.x86_64                                6.0.0-3.fc39                           @fedora
-curl.x86_64                                 8.2.1-4.fc39                           @updates
-cyrus-sasl.x86_64                           2.1.28-11.fc39                         @fedora
-dSFMT.x86_64                                2.2.3-21.fc39                          @fedora
-dbus.x86_64                                 1:1.14.10-1.fc39                       @fedora
-dconf.x86_64                                0.40.0-9.fc39                          @fedora
-device-mapper.x86_64                        1.02.197-1.fc39                        @updates
-diffstat.x86_64                             1.65-3.fc39                            @fedora
-diffutils.x86_64                            3.10-3.fc39                            @fedora
-dos2unix.x86_64                             7.5.0-2.fc39                           @fedora
-doxygen.x86_64                              2:1.9.7-3.fc39                         @fedora
-dracut.x86_64                               059-16.fc39                            @updates
-duf.x86_64                                  0.8.1-7.fc39                           @fedora
-duktape.x86_64                              2.7.0-5.fc39                           @fedora
-dwz.x86_64                                  0.15-3.fc39                            @fedora
-dyninst.x86_64                              12.3.0-3.fc39                          @fedora
-ed.x86_64                                   1.19-4.fc39                            @fedora
-exempi.x86_64                               2.6.4-2.fc39                           @fedora
-exiv2.x86_64                                0.27.6-5.fc39                          @fedora
-expat.x86_64                                2.6.2-1.fc39                           @updates
-fd-find.x86_64                              9.0.0-2.fc39                           @updates
-fennel.noarch                               1.4.2-1.fc39                           @updates
-file.x86_64                                 5.44-5.fc39                            @fedora
-findutils.x86_64                            1:4.9.0-5.fc39                         @fedora
-finger.x86_64                               0.17-75.fc39                           @fedora
-fish.x86_64                                 3.7.0-1.fc39                           @updates
-flex.x86_64                                 2.6.4-13.fc39                          @fedora
-flexiblas.x86_64                            3.4.2-1.fc39                           @updates
-fmt.x86_64                                  10.0.0-3.fc39                          @fedora
-freeglut.x86_64                             3.4.0-7.fc39                           @updates
-freetype.x86_64                             2.13.1-2.fc39                          @fedora
-fribidi.x86_64                              1.0.13-2.fc39                          @fedora
-fstrm.x86_64                                0.6.1-8.fc39                           @fedora
-fuse3.x86_64                                3.16.1-1.fc39                          @fedora
-fzf.x86_64                                  0.44.1-1.fc39                          @updates
-gawk.x86_64                                 5.2.2-2.fc39                           @fedora
-gc.x86_64                                   8.2.2-4.fc39                           @fedora
-gcal.x86_64                                 4.1-25.fc39                            @updates
-gcc.x86_64                                  13.2.1-7.fc39                          @updates
-gcc-c++.x86_64                              13.2.1-7.fc39                          @updates
-gcc-gfortran.x86_64                         13.2.1-7.fc39                          @updates
-gcc-plugin-annobin.x86_64                   13.2.1-7.fc39                          @updates
-gcl.x86_64                                  2.6.14-3.fc39                          @fedora
-gd.x86_64                                   2.3.3-12.fc39                          @fedora
-gdb.x86_64                                  14.1-4.fc39                            @updates
-gdb-headless.x86_64                         14.1-4.fc39                            @updates
-gdk-pixbuf2.x86_64                          2.42.10-5.fc39                         @fedora
-geoclue2.x86_64                             2.7.0-2.fc39                           @fedora
-gettext.x86_64                              0.22-2.fc39                            @fedora
-gh.x86_64                                   2.47.0-1                               @gh-cli
-girara.x86_64                               0.4.1-1.fc39                           @updates
-git.x86_64                                  2.44.0-1.fc39                          @updates
-git-delta.x86_64                            0.16.5-9.fc39                          @updates
-git-gui.noarch                              2.44.0-1.fc39                          @updates
-gitk.noarch                                 2.44.0-1.fc39                          @updates
-gmp.x86_64                                  1:6.2.1-5.fc39                         @fedora
-gmp-c++.x86_64                              1:6.2.1-5.fc39                         @fedora
-gnupg2.x86_64                               2.4.4-1.fc39                           @updates
-gnutls.x86_64                               3.8.4-1.fc39                           @updates
-gobject-introspection.x86_64                1.78.1-1.fc39                          @fedora
-gpgme.x86_64                                1.20.0-5.fc39                          @fedora
-graphene.x86_64                             1.10.6-6.fc39                          @fedora
-graphite2.x86_64                            1.3.14-12.fc39                         @fedora
-graphviz.x86_64                             8.1.0-6.fc39                           @updates
-grep.x86_64                                 3.11-3.fc39                            @fedora
-groff.x86_64                                1.23.0-3.fc39                          @updates
-grubby.x86_64                               8.40-73.fc39                           @updates
-gsm.x86_64                                  1.0.22-3.fc39                          @fedora
-gstreamer1.x86_64                           1.22.9-1.fc39                          @updates
-gtk3.x86_64                                 3.24.41-1.fc39                         @updates
-gts.x86_64                                  0.7.6-46.20121130.fc39                 @fedora
-guile.x86_64                                5:2.0.14-34.fc39                       @fedora
-guile22.x86_64                              2.2.7-9.fc39                           @fedora
-gzip.x86_64                                 1.12-6.fc39                            @fedora
-harfbuzz.x86_64                             8.2.1-2.fc39                           @fedora
-harfbuzz-icu.x86_64                         8.2.1-2.fc39                           @fedora
-hexyl.x86_64                                0.14.0-1.fc39                          @updates
-highway.x86_64                              1.1.0-1.fc39                           @updates
-httpd.x86_64                                2.4.58-1.fc39                          @updates
-hwdata.noarch                               0.380-1.fc39                           @updates
-hyperfine.x86_64                            1.18.0-1.fc39                          @updates
-ilbc.x86_64                                 3.0.4-7.fc39                           @fedora
-intel-mediasdk.x86_64                       23.2.2-2.fc39                          @fedora
-iputils.x86_64                              20221126-4.fc39                        @fedora
-iso-codes.noarch                            4.15.0-2.fc39                          @fedora
-jansson.x86_64                              2.13.1-7.fc39                          @fedora
-jemalloc.x86_64                             5.3.0-4.fc39                           @fedora
-jq.x86_64                                   1.6-17.fc39                            @fedora
-js-jquery.noarch                            3.6.4-2.fc39                           @fedora
-json-c.x86_64                               0.17-1.fc39                            @fedora
-jsoncpp.x86_64                              1.9.5-5.fc39                           @fedora
-julia.x86_64                                1.9.2-3.fc39                           @fedora
-just.x86_64                                 1.25.2-1.fc39                          @updates
-kbd.x86_64                                  2.6.3-1.fc39                           @fedora
-kernel-headers.x86_64                       6.7.3-200.fc39                         @updates
-kmod.x86_64                                 30-6.fc39                              @fedora
-kpartx.x86_64                               0.9.5-2.fc39                           @fedora
-ladspa.x86_64                               1.13-31.fc39                           @fedora
-lasi.x86_64                                 1.1.3-11.fc39                          @fedora
-lazygit.x86_64                              0.40.2-1.fc38                          @copr:copr.fedorainfracloud.org:atim:lazygit
-lcms2.x86_64                                2.15-2.fc39                            @fedora
-leptonica.x86_64                            1.83.1-2.fc39                          @fedora
-less.x86_64                                 633-2.fc39                             @fedora
-llvm.x86_64                                 17.0.6-3.fc39                          @updates
-lockdev.x86_64                              1.0.4-0.40.20111007git.fc39            @fedora
-logrotate.x86_64                            3.21.0-4.fc39                          @fedora
-lolcat.x86_64                               1.4-2.fc39                             @fedora
-low-memory-monitor.x86_64                   2.1-8.fc39                             @fedora
-lpcnetfreedv.x86_64                         0.5-3.fc39                             @fedora
-lsd.x86_64                                  1.0.0-3.fc39                           @updates
-lv2.x86_64                                  1.18.8-6.fc39                          @fedora
-m4.x86_64                                   1.4.19-6.fc39                          @fedora
-mailcap.noarch                              2.1.54-2.fc39                          @fedora
-make.x86_64                                 1:4.4.1-2.fc39                         @fedora
-mandoc.x86_64                               1.14.6-5.fc39                          @fedora
-mawk.x86_64                                 1:1.3.4-2.20230730.fc39                @fedora
-mbedtls.x86_64                              2.28.7-1.fc39                          @updates
-memstrack.x86_64                            0.2.5-2.fc39                           @fedora
-mercurial.x86_64                            6.5.3-1.fc39                           @updates
-mod_http2.x86_64                            2.0.25-1.fc39                          @updates
-mokutil.x86_64                              2:0.6.0-7.fc39                         @fedora
-mpdecimal.x86_64                            2.5.1-7.fc39                           @fedora
-mpfr.x86_64                                 4.2.0-3.fc39                           @fedora
-msgpack.x86_64                              3.1.0-13.fc39                          @fedora
-nawk.x86_64                                 20180827-10.fc39                       @fedora
-ncurses.x86_64                              6.4-7.20230520.fc39.1                  @updates
-neofetch.noarch                             7.1.0-10.fc39                          @fedora
-netcat.x86_64                               1.226-1.fc39                           @updates
-netpbm.x86_64                               11.02.00-2.fc39                        @fedora
-nettle.x86_64                               3.9.1-2.fc39                           @fedora
-ninja-build.x86_64                          1.11.1-4.fc39                          @fedora
-npth.x86_64                                 1.6-14.fc39                            @fedora
-nspr.x86_64                                 4.35.0-18.fc39                         @updates
-nss.x86_64                                  3.98.0-1.fc39                          @updates
-ocl-icd.x86_64                              2.3.2-2.fc39                           @fedora
-oneVPL-intel-gpu.x86_64                     24.1.3-1.fc39                          @updates
-oniguruma.x86_64                            6.9.9-1.fc39                           @updates
-opus.x86_64                                 1.3.1-13.fc39                          @fedora
-orc.x86_64                                  0.4.33-3.fc39                          @fedora
-os-prober.x86_64                            1.81-4.fc39                            @fedora
-osinfo-db.noarch                            20231215-1.fc39                        @updates
-p11-kit.x86_64                              0.25.3-1.fc39                          @updates
-p7zip-plugins.x86_64                        16.02-26.fc39                          @fedora
-pam.x86_64                                  1.5.3-3.fc39                           @updates
-pandoc.x86_64                               3.1.3-29.fc39                          @updates
-pango.x86_64                                1.51.0-1.fc39                          @fedora
-paper.x86_64                                1:2.1.1-1.fc39                         @fedora
-parallel.noarch                             20230822-1.fc39                        @fedora
-passwd.x86_64                               0.80-15.fc39                           @fedora
-patch.x86_64                                2.7.6-22.fc39                          @fedora
-patchutils.x86_64                           0.4.2-11.fc39                          @fedora
-pciutils.x86_64                             3.11.1-1.fc39                          @updates
-perl.x86_64                                 4:5.38.2-502.fc39                      @updates
-perltidy.noarch                             20230912-1.fc39                        @fedora
-php.x86_64                                  8.2.17-1.fc39                          @updates
-pigz.x86_64                                 2.8-2.fc39                             @fedora
-pipewire.x86_64                             1.0.4-2.fc39                           @updates
-pixman.x86_64                               0.42.2-2.fc39                          @fedora
-pkgconf.x86_64                              1.9.5-2.fc39                           @fedora
-plocate.x86_64                              1.1.22-1.fc39                          @updates
-plotutils.x86_64                            2.6-32.fc39                            @fedora
-polkit.x86_64                               123-1.fc39.1                           @updates
-poppler.x86_64                              23.08.0-1.fc39                         @fedora
-popt.x86_64                                 1.19-3.fc39                            @fedora
-procps-ng.x86_64                            4.0.3-5.fc39                           @updates
-protobuf-c.x86_64                           1.4.1-5.fc39                           @fedora
-psutils.noarch                              2.10-2.fc39                            @fedora
-re2.x86_64                                  1:20220601-3.fc39                      @fedora
-redhat-rpm-config.noarch                    266-1.fc39                             @updates
-rhash.x86_64                                1.4.3-3.fc39                           @fedora
-rootfiles.noarch                            8.1-34.fc39                            @fedora
-rpmautospec-rpm-macros.noarch               0.6.3-1.fc39                           @updates
-rtkit.x86_64                                0.11-61.fc39                           @updates
-rubberband.x86_64                           3.3.0-1.fc39                           @fedora
-sdbus-cpp.x86_64                            1.2.0-4.fc39                           @fedora
-serd.x86_64                                 0.30.16-2.fc39                         @fedora
-setup.noarch                                2.14.4-1.fc39                          @fedora
-shared-mime-info.x86_64                     2.2-4.fc39                             @fedora
-slang.x86_64                                2.3.3-4.fc39                           @updates
-snappy.x86_64                               1.1.10-2.fc39                          @fedora
-sombok.x86_64                               2.4.0-20.fc39                          @fedora
-sord.x86_64                                 0.16.14-2.fc39                         @fedora
-source-highlight.x86_64                     3.1.9-19.fc39                          @fedora
-soxr.x86_64                                 0.1.3-14.fc39                          @fedora
-speex.x86_64                                1.2.0-15.fc39                          @fedora
-sqlite.x86_64                               3.42.0-7.fc39                          @fedora
-sratom.x86_64                               0.6.14-2.fc39                          @fedora
-stow.noarch                                 2.3.1-11.fc39                          @fedora
-subversion.x86_64                           1.14.3-1.fc39                          @updates
-sudo.x86_64                                 1.9.15-1.p5.fc39                       @updates
-suitesparse64_.x86_64                       5.13.0-3.fc39                          @fedora
-systemtap.x86_64                            5.1~pre17062192g5fd8daba-1.fc39        @updates
-tbb.x86_64                                  2020.3-20.fc39                         @fedora
-tcl.x86_64                                  1:8.6.12-5.fc39                        @fedora
-teckit.x86_64                               2.5.12-1.fc39                          @fedora
-tesseract.x86_64                            5.3.2-3.fc39                           @fedora
-tk.x86_64                                   1:8.6.12-5.fc39                        @fedora
-tmux.x86_64                                 3.3a-7.20230918gitb202a2f.fc39         @updates
-toilet.x86_64                               0.3-15.fc39                            @fedora
-tpm2-tss.x86_64                             4.0.1-6.fc39                           @updates
-tracker.x86_64                              3.6.0-1.fc39                           @fedora
-tree.x86_64                                 2.1.0-4.fc39                           @fedora
-tree-sitter-cli.x86_64                      0.22.2-2.fc39                          @updates
-tzdata.noarch                               2024a-2.fc39                           @updates
-uchardet.x86_64                             0.0.8-4.fc39                           @fedora
-unibilium.x86_64                            2.1.1-5.fc39                           @fedora
-upower.x86_64                               1.90.2-3.fc39                          @fedora
-utf8proc.x86_64                             2.7.0-5.fc39                           @fedora
-valgrind.x86_64                             1:3.22.0-4.fc39                        @updates
-vamp-plugin-sdk.x86_64                      2.9.0-8.fc39                           @fedora
-vid.stab.x86_64                             1.1.1-1.fc39                           @fedora
-vo-amrwbenc.x86_64                          0.1.3-19.fc39                          @fedora
-wireplumber.x86_64                          0.4.17-1.fc39                          @updates
-wl-clipboard.x86_64                         2.2.1-1.fc39                           @updates
-zeromq.x86_64                               4.3.4-8.fc39                           @fedora
-zimg.x86_64                                 3.0.5-1.fc39                           @updates
-zvbi.x86_64                                 0.2.35-21.fc39                         @fedora
+Installed
+annobin-docs.noarch
+annobin-plugin-gcc.x86_64
+apr.x86_64
+at.x86_64
+atk.x86_64
+authselect.x86_64
+bash-completion.noarch
+bind-license.noarch
+binutils.x86_64
+bison.x86_64
+brotli.x86_64
+ca-certificates.noarch
+cairo.x86_64
+cairo-gobject.x86_64
+catimg.x86_64
+clang.x86_64
+cloc.noarch
+codec2.x86_64
+coreutils.x86_64
+cpio.x86_64
+cpp.x86_64
+crontabs.noarch
+crypto-policies.noarch
+ctags.x86_64
+curl.x86_64
+cyrus-sasl.x86_64
+dSFMT.x86_64
+dbus.x86_64
+dconf.x86_64
+device-mapper.x86_64
+diffstat.x86_64
+diffutils.x86_64
+dos2unix.x86_64
+doxygen.x86_64
+dracut.x86_64
+duf.x86_64
+duktape.x86_64
+dwz.x86_64
+dyninst.x86_64
+ed.x86_64
+exempi.x86_64
+exiv2.x86_64
+expat.x86_64
+fd-find.x86_64
+fennel.noarch
+file.x86_64
+findutils.x86_64
+finger.x86_64
+flex.x86_64
+flexiblas.x86_64
+fmt.x86_64
+freeglut.x86_64
+freetype.x86_64
+fribidi.x86_64
+fstrm.x86_64
+fuse3.x86_64
+fzf.x86_64
+gawk.x86_64
+gc.x86_64
+gcal.x86_64
+gcc.x86_64
+gcc-c++.x86_64
+gcc-gfortran.x86_64
+gcc-plugin-annobin.x86_64
+gcl.x86_64
+gd.x86_64
+gdb.x86_64
+gdb-headless.x86_64
+gdk-pixbuf2.x86_64
+geoclue2.x86_64
+gettext.x86_64
+girara.x86_64
+git-delta.x86_64
+git-gui.noarch
+gitk.noarch
+gmp.x86_64
+gmp-c++.x86_64
+gnupg2.x86_64
+gnutls.x86_64
+gobject-introspection.x86_64
+gpgme.x86_64
+graphene.x86_64
+graphite2.x86_64
+graphviz.x86_64
+grubby.x86_64
+gsm.x86_64
+gstreamer1.x86_64
+gtk3.x86_64
+gts.x86_64
+guile.x86_64
+guile22.x86_64
+harfbuzz.x86_64
+harfbuzz-icu.x86_64
+hexyl.x86_64
+highway.x86_64
+httpd.x86_64
+hwdata.noarch
+hyperfine.x86_64
+ilbc.x86_64
+intel-mediasdk.x86_64
+iputils.x86_64
+iso-codes.noarch
+jansson.x86_64
+jemalloc.x86_64
+js-jquery.noarch
+json-c.x86_64
+jsoncpp.x86_64
+julia.x86_64
+just.x86_64
+kbd.x86_64
+kernel-headers.x86_64
+kmod.x86_64
+kpartx.x86_64
+ladspa.x86_64
+lasi.x86_64
+lazygit.x86_64
+lcms2.x86_64
+leptonica.x86_64
+less.x86_64
+llvm.x86_64
+lockdev.x86_64
+logrotate.x86_64
+lolcat.x86_64
+low-memory-monitor.x86_64
+lpcnetfreedv.x86_64
+lsd.x86_64
+lv2.x86_64
+m4.x86_64
+mailcap.noarch
+make.x86_64
+mandoc.x86_64
+mawk.x86_64
+mbedtls.x86_64
+memstrack.x86_64
+mercurial.x86_64
+mod_http2.x86_64
+mokutil.x86_64
+mpdecimal.x86_64
+mpfr.x86_64
+msgpack.x86_64
+nawk.x86_64
+ncurses.x86_64
+netcat.x86_64
+netpbm.x86_64
+nettle.x86_64
+ninja-build.x86_64
+npth.x86_64
+nspr.x86_64
+nss.x86_64
+ocl-icd.x86_64
+oneVPL-intel-gpu.x86_64
+oniguruma.x86_64
+opus.x86_64
+orc.x86_64
+os-prober.x86_64
+osinfo-db.noarch
+p11-kit.x86_64
+p7zip-plugins.x86_64
+pam.x86_64
+pandoc.x86_64
+pango.x86_64
+paper.x86_64
+parallel.noarch
+passwd.x86_64
+patch.x86_64
+patchutils.x86_64
+pciutils.x86_64
+perl.x86_64
+perltidy.noarch
+php.x86_64
+pigz.x86_64
+pipewire.x86_64
+pixman.x86_64
+pkgconf.x86_64
+plocate.x86_64
+plotutils.x86_64
+polkit.x86_64
+poppler.x86_64
+popt.x86_64
+procps-ng.x86_64
+protobuf-c.x86_64
+psutils.noarch
+re2.x86_64
+redhat-rpm-config.noarch
+rhash.x86_64
+rootfiles.noarch
+rpmautospec-rpm-macros.noarch
+rtkit.x86_64
+rubberband.x86_64
+sdbus-cpp.x86_64
+serd.x86_64
+setup.noarch
+shared-mime-info.x86_64
+slang.x86_64
+snappy.x86_64
+sombok.x86_64
+sord.x86_64
+source-highlight.x86_64
+soxr.x86_64
+speex.x86_64
+sqlite.x86_64
+sratom.x86_64
+stow.noarch
+subversion.x86_64
+sudo.x86_64
+suitesparse64_.x86_64
+systemtap.x86_64
+tbb.x86_64
+tcl.x86_64
+teckit.x86_64
+tesseract.x86_64
+tk.x86_64
+tmux.x86_64
+toilet.x86_64
+tpm2-tss.x86_64
+tracker.x86_64
+tree.x86_64
+tree-sitter-cli.x86_64
+tzdata.noarch
+uchardet.x86_64
+unibilium.x86_64
+upower.x86_64
+utf8proc.x86_64
+valgrind.x86_64
+vamp-plugin-sdk.x86_64
+vid.stab.x86_64
+vo-amrwbenc.x86_64
+wireplumber.x86_64
+wl-clipboard.x86_64
+zeromq.x86_64
+zimg.x86_64
+zvbi.x86_64

@@ -83,8 +83,6 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 # --- End of ZimFW config ---
 
-eval "$(register-python-argcomplete pipx)"
-
 # Aliases
 alias cat="bat"                         # aliasing cat to bat
 alias cls="clear"                       # Windows version of clear
