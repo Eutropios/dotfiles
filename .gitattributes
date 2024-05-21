@@ -1,4 +1,5 @@
 *.fish linguist-detectable
 *.yaml linguist-detectable
 .zimrc linguist-language=Shell
-.zsh_aliases linguist-language=Shell
+*.fish linguist-language=Shell
+./.zfunc/* linguist-vendored

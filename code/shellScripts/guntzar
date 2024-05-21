@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 # Fancy little alias to aid in one-step untarring and unzipping
+# Use with -C <path> to output to a specific directory
 
 tar -zxf "$@"

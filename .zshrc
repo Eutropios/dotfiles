@@ -31,8 +31,7 @@ autoload -U zmv bashcompinit colors && colors
 # modifying compinit
 fpath+=~/.zfunc
 
-compinit
-bashcompinit
+compinit && bashcompinit
 
 # ---- Prompt configuration ----
 # VCS info
