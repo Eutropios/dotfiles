@@ -2,4 +2,4 @@
 *.yaml linguist-detectable
 .zimrc linguist-language=Shell
 *.fish linguist-language=Shell
-.zfunc/** linguist-vendored
+.zfunc/** linguist-detectable=false
