@@ -1,2 +1,5 @@
 zmodule zsh-users/zsh-autosuggestions
 zmodule zsh-users/zsh-syntax-highlighting
+zmodule git
+zmodule fzf
+zmodule utility
