@@ -14,7 +14,9 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep extendedglob nomatch histignoredups menu_complete prompt_subst
+HISTDUP=erase
+setopt autocd beep extendedglob nomatch menu_complete prompt_subst
+setopt appendhistory hist_ignore_all_dups hist_ignore_dups hist_save_no_dups hist_find_no_dups hist_ignore_space
 unsetopt notify
 bindkey -v
 bindkey '^[[Z' reverse-menu-complete
