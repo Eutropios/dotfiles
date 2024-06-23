@@ -3,45 +3,37 @@ set -eo pipefail
 
 # ---------------
 # Credit for this script goes to https://github.com/killjoy1221
-# I simply added a main function
+# I modified it a little to make it not use strings
 # ---------------
 
 # TODO:
-#  * pip
+#  * pip????
 #  * add cli?
 
 NO_FORMAT="\033[0m"
 C_TEAL="\033[38;5;6m"
 
-update-script() {
-    local cmdline="$1"
-    local prog=${cmdline%% *}
-    local progargs=${cmdline#* }
+function run() {
+    local prog=$1
     if [[ $prog == sudo ]]; then
-        prog=${progargs%% *}
+        prog=$2
     fi
     if [[ -n "$(command -v "$prog")" ]]; then
-        echo -e "${C_TEAL}\$${NO_FORMAT} ${cmdline[*]}"
-        sh -c "${cmdline[@]}"
+        echo -e "${C_TEAL}\$${NO_FORMAT} $*"
+        "$@"
     fi
 }
 
-declare -a updates=(
-    "sudo dnf upgrade --refresh"
-    "sudo dnf autoremove"
-    "update-luarocks"
-    "rustup update"
-    "cargo-install-update install-update --all"
-    "pnpm update -gL"
-    "rye self update"
-    "pipx upgrade-all"
-    "pip cache purge"
-)
-
-main() {
-    for cmd in "${updates[@]}"; do
-        update-script "$cmd"
-    done
+function main() {
+    run sudo dnf upgrade --refresh
+    run sudo dnf autoremove
+    run update-luarocks
+    run rustup update
+    run cargo-install-update install-update --all
+    run pnpm update -gL
+    run rye self update
+    run pipx upgrade-all
+    run pip cache purge
 }
 
 main
