@@ -26,13 +26,14 @@ PATH="$HOME/code/shellScripts/:$PATH"
 
 # Configuring Go
 PATH="$PATH:/usr/local/go/bin"
-export GOPATH="$HOME/code/langs/go"
+export GOPATH="$XDG_DATA_HOME/go"
 
 # Configuring Zig
 export PATH="$PATH:$HOME/code/langs/zig"
 
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # shellcheck disable=SC1091
-. "$HOME/.cargo/env"
+. "$CARGO_HOME/env"
 
 # perl envvars
 export PATH="/home/noahj/.perl5/bin${PATH:+:${PATH}}"

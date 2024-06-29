@@ -35,22 +35,22 @@
 # ------------------------------------------------------------------------------
 
 _arguments \
-  '(- *)'{-h,--help}'[Print help message]' \
-  '(- *)--all[Show all compiler options]' \
-  '(-b --build)'{-b,--build}'[Build one or more projects and their dependencies if out of date]' \
-  '--init[Initializes a TypeScript project and creates a tsconfig.json file]' \
-  '--listFilesOnly[Print names of files that are part of the compilation and then stop processing]' \
-  '--locale[Set the language of the messaging from TypeScript]:locale ' \
-  '(-p --project)'{-p,--project}'[Compile the project given the path to its configuration file]:config:_files' \
-  '--showConfig[Print the final configuration instead of building]' \
-  '(- *)'{-v,--version}"[Print the compiler's version]" \
-  '(-w --watch)'{-w,--watch}'[Watch input files]' \
-  '(-v --verbose)'{-v,--verbose}'[Enable verbose logging]' \
-  '(-d --dry)'{-d,--dry}'[Show what would be built]' \
-  '(-f --force)'{-f,--force}'[Build all projects, including those that appear to be up to date]' \
-  '--clean[Delete the outputs of all projects]' \
-  '*:: :_files' \
-  && return 0
+    '(- *)'{-h,--help}'[Print help message]' \
+    '(- *)--all[Show all compiler options]' \
+    '(-b --build)'{-b,--build}'[Build one or more projects and their dependencies if out of date]' \
+    '--init[Initializes a TypeScript project and creates a tsconfig.json file]' \
+    '--listFilesOnly[Print names of files that are part of the compilation and then stop processing]' \
+    '--locale[Set the language of the messaging from TypeScript]:locale ' \
+    '(-p --project)'{-p,--project}'[Compile the project given the path to its configuration file]:config:_files' \
+    '--showConfig[Print the final configuration instead of building]' \
+    '(- *)'{-v,--version}"[Print the compiler's version]" \
+    '(-w --watch)'{-w,--watch}'[Watch input files]' \
+    '(-v --verbose)'{-v,--verbose}'[Enable verbose logging]' \
+    '(-d --dry)'{-d,--dry}'[Show what would be built]' \
+    '(-f --force)'{-f,--force}'[Build all projects, including those that appear to be up to date]' \
+    '--clean[Delete the outputs of all projects]' \
+    '*:: :_files' &&
+    return 0
 
 # Local Variables:
 # mode: Shell-Script

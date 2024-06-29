@@ -1,0 +1,2810 @@
+#compdef uv
+
+autoload -U is-at-least
+
+_uv() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_uv_commands" \
+"*::: :->uv" \
+&& ret=0
+    case $state in
+    (uv)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-command-$line[1]:"
+        case $line[1] in
+            (pip)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_uv__pip_commands" \
+"*::: :->pip" \
+&& ret=0
+
+    case $state in
+    (pip)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-pip-command-$line[1]:"
+        case $line[1] in
+            (compile)
+_arguments "${_arguments_options[@]}" \
+'*-c+[Constrain versions using the given requirements files]:CONSTRAINT: ' \
+'*--constraint=[Constrain versions using the given requirements files]:CONSTRAINT: ' \
+'*--override=[Override versions using the given requirements files]:OVERRIDE:_files' \
+'(--all-extras)*--extra=[Include optional dependencies from the extra group name; may be provided more than once. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]:EXTRA: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'-o+[Write the compiled requirements to the given \`requirements.txt\` file]:OUTPUT_FILE:_files' \
+'--output-file=[Write the compiled requirements to the given \`requirements.txt\` file]:OUTPUT_FILE:_files' \
+'--annotation-style=[Choose the style of the annotation comments, which indicate the source of each package]:ANNOTATION_STYLE:((line\:"Render the annotations on a single, comma-separated line"
+split\:"Render each annotation on its own line"))' \
+'--custom-compile-command=[Change header comment to reflect custom command wrapping \`uv pip compile\`]:CUSTOM_COMPILE_COMMAND: ' \
+'--python=[The Python interpreter against which to compile the requirements.]:PYTHON: ' \
+'(--no-build)*--no-binary=[Don'\''t install pre-built wheels]:NO_BINARY: ' \
+'(--no-build)*--only-binary=[Only use pre-built wheels; don'\''t build source distributions]:ONLY_BINARY: ' \
+'-p+[The minimum Python version that should be supported by the compiled requirements (e.g., \`3.7\` or \`3.7.9\`)]:PYTHON_VERSION: ' \
+'--python-version=[The minimum Python version that should be supported by the compiled requirements (e.g., \`3.7\` or \`3.7.9\`)]:PYTHON_VERSION: ' \
+'--python-platform=[The platform for which requirements should be resolved]:PYTHON_PLATFORM:((windows\:"An alias for \`x86_64-pc-windows-msvc\`, the default target for Windows"
+linux\:"An alias for \`x86_64-unknown-linux-gnu\`, the default target for Linux"
+macos\:"An alias for \`aarch64-apple-darwin\`, the default target for macOS"
+x86_64-pc-windows-msvc\:"An x86 Windows target"
+x86_64-unknown-linux-gnu\:"An x86 Linux target. Equivalent to \`x86_64-manylinux_2_17\`"
+aarch64-apple-darwin\:"An ARM-based macOS target, as seen on Apple Silicon devices"
+x86_64-apple-darwin\:"An x86 macOS target"
+aarch64-unknown-linux-gnu\:"An ARM64 Linux target. Equivalent to \`aarch64-manylinux_2_17\`"
+aarch64-unknown-linux-musl\:"An ARM64 Linux target"
+x86_64-unknown-linux-musl\:"An \`x86_64\` Linux target"
+x86_64-manylinux_2_17\:"An \`x86_64\` target for the \`manylinux_2_17\` platform"
+x86_64-manylinux_2_28\:"An \`x86_64\` target for the \`manylinux_2_28\` platform"
+aarch64-manylinux_2_17\:"An ARM64 target for the \`manylinux_2_17\` platform"
+aarch64-manylinux_2_28\:"An ARM64 target for the \`manylinux_2_28\` platform"))' \
+'*--no-emit-package=[Specify a package to omit from the output resolution. Its dependencies will still be included in the resolution. Equivalent to pip-compile'\''s \`--unsafe-package\` option]:NO_EMIT_PACKAGE: ' \
+'--resolver=[]:RESOLVER:(backtracking legacy)' \
+'--max-rounds=[]:MAX_ROUNDS: ' \
+'--cert=[]:CERT: ' \
+'--client-cert=[]:CLIENT_CERT: ' \
+'--trusted-host=[]:TRUSTED_HOST: ' \
+'--config=[]:CONFIG: ' \
+'--pip-args=[]:PIP_ARGS: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(--extra)--all-extras[Include all optional dependencies. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]' \
+'--no-all-extras[]' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--pre[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'--no-deps[Ignore package dependencies, instead only add those packages explicitly listed on the command line to the resulting the requirements file]' \
+'--deps[]' \
+'--no-strip-extras[Include extras in the output file]' \
+'--strip-extras[]' \
+'--no-strip-markers[Include environment markers in the output file]' \
+'--strip-markers[]' \
+'--no-annotate[Exclude comment annotations indicating the source of each package]' \
+'--annotate[]' \
+'--no-header[Exclude the comment header at the top of the generated output file]' \
+'--header[]' \
+'--system[Install packages into the system Python]' \
+'--no-system[]' \
+'--generate-hashes[Include distribution hashes in the output file]' \
+'--no-generate-hashes[]' \
+'--legacy-setup-py[Use legacy \`setuptools\` behavior when building source distributions without a \`pyproject.toml\`]' \
+'--no-legacy-setup-py[]' \
+'--no-build-isolation[Disable isolation when building source distributions]' \
+'--build-isolation[]' \
+'(--no-binary --only-binary)--no-build[Don'\''t build source distributions]' \
+'(--no-binary --only-binary)--build[]' \
+'--universal[Perform a universal resolution, attempting to generate a single \`requirements.txt\` output file that is compatible with all operating systems, architectures and supported Python versions]' \
+'--no-universal[]' \
+'--emit-index-url[Include \`--index-url\` and \`--extra-index-url\` entries in the generated output file]' \
+'--no-emit-index-url[]' \
+'--emit-find-links[Include \`--find-links\` entries in the generated output file]' \
+'--no-emit-find-links[]' \
+'--emit-build-options[Include \`--no-binary\` and \`--only-binary\` entries in the generated output file]' \
+'--no-emit-build-options[]' \
+'--emit-marker-expression[Whether to emit a marker string indicating when it is known that the resulting set of pinned dependencies is valid]' \
+'--no-emit-marker-expression[]' \
+'--emit-index-annotation[Include comment annotations indicating the index used to resolve each package (e.g., \`# from https\://pypi.org/simple\`)]' \
+'--no-emit-index-annotation[]' \
+'--allow-unsafe[]' \
+'--no-allow-unsafe[]' \
+'--reuse-hashes[]' \
+'--no-reuse-hashes[]' \
+'--emit-trusted-host[]' \
+'--no-emit-trusted-host[]' \
+'--no-config[]' \
+'--emit-options[]' \
+'--no-emit-options[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::src_file -- Include all packages listed in the given `requirements.in` files:_files' \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+'*-c+[Constrain versions using the given requirements files]:CONSTRAINT: ' \
+'*--constraint=[Constrain versions using the given requirements files]:CONSTRAINT: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'-p+[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'--python=[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'(--prefix)--target=[Install packages into the specified directory, rather than into the virtual environment or system Python interpreter. The packages will be installed at the top-level of the directory]:TARGET:_files' \
+'(--target)--prefix=[Install packages into \`lib\`, \`bin\`, and other top-level folders under the specified directory, as if a virtual environment were created at the specified location]:PREFIX:_files' \
+'(--no-build)*--no-binary=[Don'\''t install pre-built wheels]:NO_BINARY: ' \
+'(--no-build)*--only-binary=[Only use pre-built wheels; don'\''t build source distributions]:ONLY_BINARY: ' \
+'--python-version=[The minimum Python version that should be supported by the requirements (e.g., \`3.7\` or \`3.7.9\`)]:PYTHON_VERSION: ' \
+'--python-platform=[The platform for which requirements should be installed]:PYTHON_PLATFORM:((windows\:"An alias for \`x86_64-pc-windows-msvc\`, the default target for Windows"
+linux\:"An alias for \`x86_64-unknown-linux-gnu\`, the default target for Linux"
+macos\:"An alias for \`aarch64-apple-darwin\`, the default target for macOS"
+x86_64-pc-windows-msvc\:"An x86 Windows target"
+x86_64-unknown-linux-gnu\:"An x86 Linux target. Equivalent to \`x86_64-manylinux_2_17\`"
+aarch64-apple-darwin\:"An ARM-based macOS target, as seen on Apple Silicon devices"
+x86_64-apple-darwin\:"An x86 macOS target"
+aarch64-unknown-linux-gnu\:"An ARM64 Linux target. Equivalent to \`aarch64-manylinux_2_17\`"
+aarch64-unknown-linux-musl\:"An ARM64 Linux target"
+x86_64-unknown-linux-musl\:"An \`x86_64\` Linux target"
+x86_64-manylinux_2_17\:"An \`x86_64\` target for the \`manylinux_2_17\` platform"
+x86_64-manylinux_2_28\:"An \`x86_64\` target for the \`manylinux_2_28\` platform"
+aarch64-manylinux_2_17\:"An ARM64 target for the \`manylinux_2_17\` platform"
+aarch64-manylinux_2_28\:"An ARM64 target for the \`manylinux_2_28\` platform"))' \
+'--trusted-host=[]:TRUSTED_HOST: ' \
+'--python-executable=[]:PYTHON_EXECUTABLE: ' \
+'--cert=[]:CERT: ' \
+'--client-cert=[]:CLIENT_CERT: ' \
+'--config=[]:CONFIG: ' \
+'--pip-args=[]:PIP_ARGS: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'--require-hashes[Require a matching hash for each requirement]' \
+'--no-require-hashes[]' \
+'--system[Install packages into the system Python]' \
+'--no-system[]' \
+'--break-system-packages[Allow \`uv\` to modify an \`EXTERNALLY-MANAGED\` Python installation]' \
+'--no-break-system-packages[]' \
+'--legacy-setup-py[Use legacy \`setuptools\` behavior when building source distributions without a \`pyproject.toml\`]' \
+'--no-legacy-setup-py[]' \
+'--no-build-isolation[Disable isolation when building source distributions]' \
+'--build-isolation[]' \
+'(--no-binary --only-binary)--no-build[Don'\''t build source distributions]' \
+'(--no-binary --only-binary)--build[]' \
+'--strict[Validate the virtual environment after completing the installation, to detect packages with missing dependencies or other issues]' \
+'--no-strict[]' \
+'--dry-run[Perform a dry run, i.e., don'\''t actually install anything but resolve the dependencies and print the resulting plan]' \
+'-a[]' \
+'--ask[]' \
+'--user[]' \
+'--no-config[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::src_file -- Include all packages listed in the given `requirements.txt` files:_files' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+'*-r+[Install all packages listed in the given \`requirements.txt\` files]:REQUIREMENT:_files' \
+'*--requirement=[Install all packages listed in the given \`requirements.txt\` files]:REQUIREMENT:_files' \
+'*-e+[Install the editable package based on the provided local file path]:EDITABLE: ' \
+'*--editable=[Install the editable package based on the provided local file path]:EDITABLE: ' \
+'*-c+[Constrain versions using the given requirements files]:CONSTRAINT: ' \
+'*--constraint=[Constrain versions using the given requirements files]:CONSTRAINT: ' \
+'*--override=[Override versions using the given requirements files]:OVERRIDE:_files' \
+'(--all-extras)*--extra=[Include optional dependencies from the extra group name; may be provided more than once. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]:EXTRA: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'-p+[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'--python=[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'(--prefix)--target=[Install packages into the specified directory, rather than into the virtual environment or system Python interpreter. The packages will be installed at the top-level of the directory]:TARGET:_files' \
+'(--target)--prefix=[Install packages into \`lib\`, \`bin\`, and other top-level folders under the specified directory, as if a virtual environment were created at the specified location]:PREFIX:_files' \
+'(--no-build)*--no-binary=[Don'\''t install pre-built wheels]:NO_BINARY: ' \
+'(--no-build)*--only-binary=[Only use pre-built wheels; don'\''t build source distributions]:ONLY_BINARY: ' \
+'--python-version=[The minimum Python version that should be supported by the requirements (e.g., \`3.7\` or \`3.7.9\`)]:PYTHON_VERSION: ' \
+'--python-platform=[The platform for which requirements should be installed]:PYTHON_PLATFORM:((windows\:"An alias for \`x86_64-pc-windows-msvc\`, the default target for Windows"
+linux\:"An alias for \`x86_64-unknown-linux-gnu\`, the default target for Linux"
+macos\:"An alias for \`aarch64-apple-darwin\`, the default target for macOS"
+x86_64-pc-windows-msvc\:"An x86 Windows target"
+x86_64-unknown-linux-gnu\:"An x86 Linux target. Equivalent to \`x86_64-manylinux_2_17\`"
+aarch64-apple-darwin\:"An ARM-based macOS target, as seen on Apple Silicon devices"
+x86_64-apple-darwin\:"An x86 macOS target"
+aarch64-unknown-linux-gnu\:"An ARM64 Linux target. Equivalent to \`aarch64-manylinux_2_17\`"
+aarch64-unknown-linux-musl\:"An ARM64 Linux target"
+x86_64-unknown-linux-musl\:"An \`x86_64\` Linux target"
+x86_64-manylinux_2_17\:"An \`x86_64\` target for the \`manylinux_2_17\` platform"
+x86_64-manylinux_2_28\:"An \`x86_64\` target for the \`manylinux_2_28\` platform"
+aarch64-manylinux_2_17\:"An ARM64 target for the \`manylinux_2_17\` platform"
+aarch64-manylinux_2_28\:"An ARM64 target for the \`manylinux_2_28\` platform"))' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(--extra)--all-extras[Include all optional dependencies. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]' \
+'--no-all-extras[]' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--pre[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'--no-deps[Ignore package dependencies, instead only installing those packages explicitly listed on the command line or in the requirements files]' \
+'--deps[]' \
+'--require-hashes[Require a matching hash for each requirement]' \
+'--no-require-hashes[]' \
+'--system[Install packages into the system Python]' \
+'--no-system[]' \
+'--break-system-packages[Allow \`uv\` to modify an \`EXTERNALLY-MANAGED\` Python installation]' \
+'--no-break-system-packages[]' \
+'--legacy-setup-py[Use legacy \`setuptools\` behavior when building source distributions without a \`pyproject.toml\`]' \
+'--no-legacy-setup-py[]' \
+'--no-build-isolation[Disable isolation when building source distributions]' \
+'--build-isolation[]' \
+'(--no-binary --only-binary)--no-build[Don'\''t build source distributions]' \
+'(--no-binary --only-binary)--build[]' \
+'--strict[Validate the virtual environment after completing the installation, to detect packages with missing dependencies or other issues]' \
+'--no-strict[]' \
+'--dry-run[Perform a dry run, i.e., don'\''t actually install anything but resolve the dependencies and print the resulting plan]' \
+'--user[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::package -- Install all listed packages:' \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+'*-r+[Uninstall all packages listed in the given requirements files]:REQUIREMENT:_files' \
+'*--requirement=[Uninstall all packages listed in the given requirements files]:REQUIREMENT:_files' \
+'-p+[The Python interpreter from which packages should be uninstalled.]:PYTHON: ' \
+'--python=[The Python interpreter from which packages should be uninstalled.]:PYTHON: ' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for remote requirements files]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'(--prefix)--target=[Uninstall packages from the specified \`--target\` directory]:TARGET:_files' \
+'(--target)--prefix=[Uninstall packages from the specified \`--prefix\` directory]:PREFIX:_files' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--system[Use the system Python to uninstall packages]' \
+'--no-system[]' \
+'--break-system-packages[Allow \`uv\` to modify an \`EXTERNALLY-MANAGED\` Python installation]' \
+'--no-break-system-packages[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::package -- Uninstall all listed packages:' \
+&& ret=0
+;;
+(freeze)
+_arguments "${_arguments_options[@]}" \
+'-p+[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'--python=[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--exclude-editable[Exclude any editable packages from output]' \
+'--strict[Validate the virtual environment, to detect packages with missing dependencies or other issues]' \
+'--no-strict[]' \
+'--system[List packages for the system Python]' \
+'--no-system[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'*--exclude=[Exclude the specified package(s) from the output]:EXCLUDE: ' \
+'--format=[Select the output format between\: \`columns\` (default), \`freeze\`, or \`json\`]:FORMAT:((columns\:"Display the list of packages in a human-readable table"
+freeze\:"Display the list of packages in a \`pip freeze\`-like format, with one package per line alongside its version"
+json\:"Display the list of packages in a machine-readable JSON format"))' \
+'-p+[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'--python=[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'-e[Only include editable projects]' \
+'--editable[Only include editable projects]' \
+'--exclude-editable[Exclude any editable packages from output]' \
+'--strict[Validate the virtual environment, to detect packages with missing dependencies or other issues]' \
+'--no-strict[]' \
+'--system[List packages for the system Python]' \
+'--no-system[]' \
+'--outdated[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" \
+'-p+[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'--python=[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--strict[Validate the virtual environment, to detect packages with missing dependencies or other issues]' \
+'--no-strict[]' \
+'--system[List packages for the system Python]' \
+'--no-system[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::package -- The package(s) to display:' \
+&& ret=0
+;;
+(tree)
+_arguments "${_arguments_options[@]}" \
+'-p+[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'--python=[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--no-dedupe[Do not de-duplicate repeated dependencies. Usually, when a package has already displayed its dependencies, further occurrences will not re-display its dependencies, and will include a (*) to indicate it has already been shown. This flag will cause those duplicates to be repeated]' \
+'--strict[Validate the virtual environment, to detect packages with missing dependencies or other issues]' \
+'--no-strict[]' \
+'--system[List packages for the system Python]' \
+'--no-system[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(check)
+_arguments "${_arguments_options[@]}" \
+'-p+[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'--python=[The Python interpreter for which packages should be listed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--system[List packages for the system Python]' \
+'--no-system[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__pip__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-pip-help-command-$line[1]:"
+        case $line[1] in
+            (compile)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(freeze)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(tree)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(check)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(tool)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_uv__tool_commands" \
+"*::: :->tool" \
+&& ret=0
+
+    case $state in
+    (tool)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-tool-command-$line[1]:"
+        case $line[1] in
+            (run)
+_arguments "${_arguments_options[@]}" \
+'--from=[Use the given package to provide the command]:FROM: ' \
+'*--with=[Include the following extra requirements]:WITH: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE: ' \
+'*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE: ' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'-p+[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'--python=[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--pre[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'--no-build[Don'\''t build source distributions]' \
+'--build[]' \
+'--no-binary[Don'\''t install pre-built wheels]' \
+'--binary[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+'--from=[Use the given package to provide the command]:FROM: ' \
+'*--with=[Include the following extra requirements]:WITH: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE: ' \
+'*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE: ' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'-p+[The Python interpreter to use to build the tool environment.]:PYTHON: ' \
+'--python=[The Python interpreter to use to build the tool environment.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--pre[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'--no-build[Don'\''t build source distributions]' \
+'--build[]' \
+'--no-binary[Don'\''t install pre-built wheels]' \
+'--binary[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'--force[Force installation of the tool]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':name -- The command to install:' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__tool__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-tool-help-command-$line[1]:"
+        case $line[1] in
+            (run)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(toolchain)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_uv__toolchain_commands" \
+"*::: :->toolchain" \
+&& ret=0
+
+    case $state in
+    (toolchain)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-toolchain-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--all-versions[List all toolchain versions, including outdated patch versions]' \
+'--all-platforms[List toolchains for all platforms]' \
+'--only-installed[Only show installed toolchains, exclude available downloads]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'-f[Force the installation of the toolchain, even if it is already installed]' \
+'--force[Force the installation of the toolchain, even if it is already installed]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::targets -- The toolchains to install:' \
+&& ret=0
+;;
+(find)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::request -- The toolchain request:' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__toolchain__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-toolchain-help-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(find)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(run)
+_arguments "${_arguments_options[@]}" \
+'(--all-extras)*--extra=[Include optional dependencies from the extra group name; may be provided more than once. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]:EXTRA: ' \
+'*--with=[Run with the given packages installed]:WITH: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE: ' \
+'*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE: ' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'(--isolated)--package=[Run the command in a specific package in the workspace]:PACKAGE: ' \
+'-p+[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'--python=[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(--extra)--all-extras[Include all optional dependencies. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]' \
+'--no-all-extras[]' \
+'--dev[Include development dependencies]' \
+'--no-dev[Omit development dependencies]' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--pre[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'--no-build[Don'\''t build source distributions]' \
+'--build[]' \
+'--no-binary[Don'\''t install pre-built wheels]' \
+'--binary[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+'(--all-extras)*--extra=[Include optional dependencies from the extra group name; may be provided more than once. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]:EXTRA: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE: ' \
+'*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE: ' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'-p+[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'--python=[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(--extra)--all-extras[Include all optional dependencies. Only applies to \`pyproject.toml\`, \`setup.py\`, and \`setup.cfg\` sources]' \
+'--no-all-extras[]' \
+'--dev[Include development dependencies]' \
+'--no-dev[Omit development dependencies]' \
+'--no-clean[Does not clean the environment. Without this flag any extraneous installations will be removed]' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'--no-build[Don'\''t build source distributions]' \
+'--build[]' \
+'--no-binary[Don'\''t install pre-built wheels]' \
+'--binary[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(lock)
+_arguments "${_arguments_options[@]}" \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE: ' \
+'*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE: ' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'-p+[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'--python=[The Python interpreter to use to build the run environment.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--pre[]' \
+'--no-build[Don'\''t build source distributions]' \
+'--build[]' \
+'--no-binary[Don'\''t install pre-built wheels]' \
+'--binary[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(add)
+_arguments "${_arguments_options[@]}" \
+'--editable=[Add the requirements as editables]' \
+'--rev=[Specific commit to use when adding from Git]:REV: ' \
+'--tag=[Tag to use when adding from git]:TAG: ' \
+'--branch=[Branch to use when adding from git]:BRANCH: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*-P+[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--upgrade-package=[Allow upgrades for a specific package, ignoring pinned versions in any existing output file]:UPGRADE_PACKAGE: ' \
+'*--reinstall-package=[Reinstall a specific package, regardless of whether it'\''s already installed]:REINSTALL_PACKAGE: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--resolution=[The strategy to use when selecting between the different compatible versions for a given package requirement]:RESOLUTION:((highest\:"Resolve the highest compatible version of each package"
+lowest\:"Resolve the lowest compatible version of each package"
+lowest-direct\:"Resolve the lowest compatible version of any direct dependencies, and the highest compatible version of any transitive dependencies"))' \
+'--prerelease=[The strategy to use when considering pre-release versions]:PRERELEASE:((disallow\:"Disallow all pre-release versions"
+allow\:"Allow all pre-release versions"
+if-necessary\:"Allow pre-release versions if all versions of a package are pre-release"
+explicit\:"Allow pre-release versions for first-party packages with explicit pre-release markers in their version requirements"
+if-necessary-or-explicit\:"Allow pre-release versions if all versions of a package are pre-release, or if the package has an explicit pre-release marker in its version requirements"))' \
+'*-C+[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'*--config-setting=[Settings to pass to the PEP 517 build backend, specified as \`KEY=VALUE\` pairs]:CONFIG_SETTING: ' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'*--no-build-package=[Don'\''t build source distributions for a specific package]:NO_BUILD_PACKAGE: ' \
+'*--no-binary-package=[Don'\''t install pre-built wheels for a specific package]:NO_BINARY_PACKAGE: ' \
+'*--refresh-package=[Refresh cached data for a specific package]:REFRESH_PACKAGE: ' \
+'(--isolated)--package=[Add the dependency to a specific package in the workspace]:PACKAGE: ' \
+'-p+[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'--python=[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--dev[Add the requirements as development dependencies]' \
+'--raw-sources[Add source requirements to the \`project.dependencies\` section of the \`pyproject.toml\`]' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'-U[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--upgrade[Allow package upgrades, ignoring pinned versions in any existing output file]' \
+'--no-upgrade[]' \
+'--reinstall[Reinstall all packages, regardless of whether they'\''re already installed]' \
+'--no-reinstall[]' \
+'--pre[]' \
+'--compile-bytecode[Compile Python files to bytecode]' \
+'--no-compile-bytecode[]' \
+'--no-build[Don'\''t build source distributions]' \
+'--build[]' \
+'--no-binary[Don'\''t install pre-built wheels]' \
+'--binary[]' \
+'(--offline)--refresh[Refresh all cached data]' \
+'(--offline)--no-refresh[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::requirements -- The packages to add, as PEP 508 requirements (e.g., `flask==2.2.3`):' \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+'(--isolated)--package=[Remove the dependency from a specific package in the workspace]:PACKAGE: ' \
+'-p+[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'--python=[The Python interpreter into which packages should be installed.]:PYTHON: ' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--dev[Remove the requirements from development dependencies]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::requirements -- The names of the packages to remove (e.g., `flask`):' \
+&& ret=0
+;;
+(venv)
+_arguments "${_arguments_options[@]}" \
+'-p+[The Python interpreter to use for the virtual environment.]:PYTHON: ' \
+'--python=[The Python interpreter to use for the virtual environment.]:PYTHON: ' \
+'--prompt=[Provide an alternative prompt prefix for the virtual environment.]:PROMPT: ' \
+'-i+[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'--index-url=[The URL of the Python package index (by default\: <https\://pypi.org/simple>)]:INDEX_URL: ' \
+'*--extra-index-url=[Extra URLs of package indexes to use, in addition to \`--index-url\`]:EXTRA_INDEX_URL: ' \
+'*-f+[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'*--find-links=[Locations to search for candidate distributions, beyond those found in the indexes]:FIND_LINKS: ' \
+'--index-strategy=[The strategy to use when resolving against multiple index URLs]:INDEX_STRATEGY:((first-index\:"Only use results from the first index that returns a match for a given package name"
+unsafe-first-match\:"Search for every package name across all indexes, exhausting the versions from the first index before moving on to the next"
+unsafe-best-match\:"Search for every package name across all indexes, preferring the "best" version found. If a package version is in multiple indexes, only look at the entry for the first index"))' \
+'--keyring-provider=[Attempt to use \`keyring\` for authentication for index URLs]:KEYRING_PROVIDER:((disabled\:"Do not use keyring for credential lookup"
+subprocess\:"Use the \`keyring\` command for credential lookup"))' \
+'--exclude-newer=[Limit candidate packages to those that were uploaded prior to the given date]:EXCLUDE_NEWER: ' \
+'--link-mode=[The method to use when installing packages from the global cache]:LINK_MODE:((clone\:"Clone (i.e., copy-on-write) packages from the wheel into the site packages"
+copy\:"Copy packages from the wheel into the site packages"
+hardlink\:"Hard link packages from the wheel into the site packages"))' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'--system[Use the system Python to uninstall packages]' \
+'--no-system[]' \
+'--seed[Install seed packages (\`pip\`, \`setuptools\`, and \`wheel\`) into the virtual environment]' \
+'--allow-existing[Preserve any existing files or directories at the target path]' \
+'--system-site-packages[Give the virtual environment access to the system site packages directory]' \
+'--no-index[Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those discovered via \`--find-links\`]' \
+'--clear[]' \
+'--no-seed[]' \
+'--no-pip[]' \
+'--no-setuptools[]' \
+'--no-wheel[]' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::name -- The path to the virtual environment to create:_files' \
+&& ret=0
+;;
+(cache)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_uv__cache_commands" \
+"*::: :->cache" \
+&& ret=0
+
+    case $state in
+    (cache)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-cache-command-$line[1]:"
+        case $line[1] in
+            (clean)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::package -- The packages to remove from the cache:' \
+&& ret=0
+;;
+(prune)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(dir)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__cache__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-cache-help-command-$line[1]:"
+        case $line[1] in
+            (clean)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(prune)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(dir)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(self)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_uv__self_commands" \
+"*::: :->self" \
+&& ret=0
+
+    case $state in
+    (self)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-self-command-$line[1]:"
+        case $line[1] in
+            (update)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__self__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-self-help-command-$line[1]:"
+        case $line[1] in
+            (update)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(clean)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::package -- The packages to remove from the cache:' \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+'--output-format=[]:OUTPUT_FORMAT:((text\:"Display the version as plain text"
+json\:"Display the version as JSON"))' \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(generate-shell-completion)
+_arguments "${_arguments_options[@]}" \
+'(--no-color)--color=[Control colors in output]:COLOR_CHOICE:((auto\:"Enables colored output only when the output is going to a terminal or TTY with support"
+always\:"Enables colored output regardless of the detected environment"
+never\:"Disables colored output"))' \
+'--toolchain-preference=[Whether to use system or uv-managed Python toolchains]:TOOLCHAIN_PREFERENCE:((only-managed\:"Only use managed interpreters, never use system interpreters"
+prefer-installed-managed\:"Prefer installed managed interpreters, but use system interpreters if not found. If neither can be found, download a managed interpreter"
+prefer-managed\:"Prefer managed interpreters, even if one needs to be downloaded, but use system interpreters if found"
+prefer-system\:"Prefer system interpreters, only use managed interpreters if no system interpreter is found"
+only-system\:"Only use system interpreters, never use managed interpreters"))' \
+'--cache-dir=[Path to the cache directory]:CACHE_DIR:_files' \
+'--config-file=[The path to a \`uv.toml\` file to use for configuration]:CONFIG_FILE:_files' \
+'(-v --verbose)-q[Do not print any output]' \
+'(-v --verbose)--quiet[Do not print any output]' \
+'(-q --quiet)*-v[Use verbose output]' \
+'(-q --quiet)*--verbose[Use verbose output]' \
+'(--color)--no-color[Disable colors; provided for compatibility with \`pip\`]' \
+'--native-tls[Whether to load TLS certificates from the platform'\''s native certificate store]' \
+'--no-native-tls[]' \
+'--offline[Disable network access, relying only on locally cached data and locally available files]' \
+'--no-offline[]' \
+'--preview[Whether to enable experimental, preview features]' \
+'--no-preview[]' \
+'--isolated[Avoid discovering a \`pyproject.toml\` or \`uv.toml\` file in the current directory or any parent directories]' \
+'--show-settings[Show the resolved settings for the current command]' \
+'-n[Avoid reading from or writing to the cache]' \
+'--no-cache[Avoid reading from or writing to the cache]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':shell:(bash elvish fig fish nushell powershell zsh)' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-help-command-$line[1]:"
+        case $line[1] in
+            (pip)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__help__pip_commands" \
+"*::: :->pip" \
+&& ret=0
+
+    case $state in
+    (pip)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-help-pip-command-$line[1]:"
+        case $line[1] in
+            (compile)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(freeze)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(tree)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(check)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(tool)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__help__tool_commands" \
+"*::: :->tool" \
+&& ret=0
+
+    case $state in
+    (tool)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-help-tool-command-$line[1]:"
+        case $line[1] in
+            (run)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(toolchain)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__help__toolchain_commands" \
+"*::: :->toolchain" \
+&& ret=0
+
+    case $state in
+    (toolchain)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-help-toolchain-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(find)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(run)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(lock)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(add)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(venv)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(cache)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__help__cache_commands" \
+"*::: :->cache" \
+&& ret=0
+
+    case $state in
+    (cache)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-help-cache-command-$line[1]:"
+        case $line[1] in
+            (clean)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(prune)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(dir)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(self)
+_arguments "${_arguments_options[@]}" \
+":: :_uv__help__self_commands" \
+"*::: :->self" \
+&& ret=0
+
+    case $state in
+    (self)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:uv-help-self-command-$line[1]:"
+        case $line[1] in
+            (update)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(clean)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(generate-shell-completion)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_uv_commands] )) ||
+_uv_commands() {
+    local commands; commands=(
+'pip:Resolve and install Python packages' \
+'tool:Run and manage executable Python packages' \
+'toolchain:Manage Python installations' \
+'run:Run a command in the project environment' \
+'sync:Sync the project'\''s dependencies with the environment' \
+'lock:Resolve the project requirements into a lockfile' \
+'add:Add one or more packages to the project requirements' \
+'remove:Remove one or more packages from the project requirements' \
+'venv:Create a virtual environment' \
+'cache:Manage the cache' \
+'self:Manage the \`uv\` executable' \
+'clean:Clear the cache, removing all entries or those linked to specific packages' \
+'version:Display uv'\''s version' \
+'generate-shell-completion:Generate shell completion' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv commands' commands "$@"
+}
+(( $+functions[_uv__add_commands] )) ||
+_uv__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv add commands' commands "$@"
+}
+(( $+functions[_uv__help__add_commands] )) ||
+_uv__help__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help add commands' commands "$@"
+}
+(( $+functions[_uv__cache_commands] )) ||
+_uv__cache_commands() {
+    local commands; commands=(
+'clean:Clear the cache, removing all entries or those linked to specific packages' \
+'prune:Prune all unreachable objects from the cache' \
+'dir:Show the cache directory' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv cache commands' commands "$@"
+}
+(( $+functions[_uv__help__cache_commands] )) ||
+_uv__help__cache_commands() {
+    local commands; commands=(
+'clean:Clear the cache, removing all entries or those linked to specific packages' \
+'prune:Prune all unreachable objects from the cache' \
+'dir:Show the cache directory' \
+    )
+    _describe -t commands 'uv help cache commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__check_commands] )) ||
+_uv__help__pip__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip check commands' commands "$@"
+}
+(( $+functions[_uv__pip__check_commands] )) ||
+_uv__pip__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip check commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__check_commands] )) ||
+_uv__pip__help__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help check commands' commands "$@"
+}
+(( $+functions[_uv__cache__clean_commands] )) ||
+_uv__cache__clean_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache clean commands' commands "$@"
+}
+(( $+functions[_uv__cache__help__clean_commands] )) ||
+_uv__cache__help__clean_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache help clean commands' commands "$@"
+}
+(( $+functions[_uv__clean_commands] )) ||
+_uv__clean_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv clean commands' commands "$@"
+}
+(( $+functions[_uv__help__cache__clean_commands] )) ||
+_uv__help__cache__clean_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help cache clean commands' commands "$@"
+}
+(( $+functions[_uv__help__clean_commands] )) ||
+_uv__help__clean_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help clean commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__compile_commands] )) ||
+_uv__help__pip__compile_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip compile commands' commands "$@"
+}
+(( $+functions[_uv__pip__compile_commands] )) ||
+_uv__pip__compile_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip compile commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__compile_commands] )) ||
+_uv__pip__help__compile_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help compile commands' commands "$@"
+}
+(( $+functions[_uv__cache__dir_commands] )) ||
+_uv__cache__dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache dir commands' commands "$@"
+}
+(( $+functions[_uv__cache__help__dir_commands] )) ||
+_uv__cache__help__dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache help dir commands' commands "$@"
+}
+(( $+functions[_uv__help__cache__dir_commands] )) ||
+_uv__help__cache__dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help cache dir commands' commands "$@"
+}
+(( $+functions[_uv__help__toolchain__find_commands] )) ||
+_uv__help__toolchain__find_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help toolchain find commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__find_commands] )) ||
+_uv__toolchain__find_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain find commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__help__find_commands] )) ||
+_uv__toolchain__help__find_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain help find commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__freeze_commands] )) ||
+_uv__help__pip__freeze_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip freeze commands' commands "$@"
+}
+(( $+functions[_uv__pip__freeze_commands] )) ||
+_uv__pip__freeze_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip freeze commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__freeze_commands] )) ||
+_uv__pip__help__freeze_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help freeze commands' commands "$@"
+}
+(( $+functions[_uv__generate-shell-completion_commands] )) ||
+_uv__generate-shell-completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv generate-shell-completion commands' commands "$@"
+}
+(( $+functions[_uv__help__generate-shell-completion_commands] )) ||
+_uv__help__generate-shell-completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help generate-shell-completion commands' commands "$@"
+}
+(( $+functions[_uv__cache__help_commands] )) ||
+_uv__cache__help_commands() {
+    local commands; commands=(
+'clean:Clear the cache, removing all entries or those linked to specific packages' \
+'prune:Prune all unreachable objects from the cache' \
+'dir:Show the cache directory' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv cache help commands' commands "$@"
+}
+(( $+functions[_uv__cache__help__help_commands] )) ||
+_uv__cache__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache help help commands' commands "$@"
+}
+(( $+functions[_uv__help_commands] )) ||
+_uv__help_commands() {
+    local commands; commands=(
+'pip:Resolve and install Python packages' \
+'tool:Run and manage executable Python packages' \
+'toolchain:Manage Python installations' \
+'run:Run a command in the project environment' \
+'sync:Sync the project'\''s dependencies with the environment' \
+'lock:Resolve the project requirements into a lockfile' \
+'add:Add one or more packages to the project requirements' \
+'remove:Remove one or more packages from the project requirements' \
+'venv:Create a virtual environment' \
+'cache:Manage the cache' \
+'self:Manage the \`uv\` executable' \
+'clean:Clear the cache, removing all entries or those linked to specific packages' \
+'version:Display uv'\''s version' \
+'generate-shell-completion:Generate shell completion' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv help commands' commands "$@"
+}
+(( $+functions[_uv__help__help_commands] )) ||
+_uv__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help help commands' commands "$@"
+}
+(( $+functions[_uv__pip__help_commands] )) ||
+_uv__pip__help_commands() {
+    local commands; commands=(
+'compile:Compile a \`requirements.in\` file to a \`requirements.txt\` file' \
+'sync:Sync an environment with a \`requirements.txt\` file' \
+'install:Install packages into an environment' \
+'uninstall:Uninstall packages from an environment' \
+'freeze:Enumerate the installed packages in an environment' \
+'list:Enumerate the installed packages in an environment' \
+'show:Show information about one or more installed packages' \
+'tree:Display the dependency tree for an environment' \
+'check:Verify installed packages have compatible dependencies' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv pip help commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__help_commands] )) ||
+_uv__pip__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help help commands' commands "$@"
+}
+(( $+functions[_uv__self__help_commands] )) ||
+_uv__self__help_commands() {
+    local commands; commands=(
+'update:Update \`uv\` to the latest version' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv self help commands' commands "$@"
+}
+(( $+functions[_uv__self__help__help_commands] )) ||
+_uv__self__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv self help help commands' commands "$@"
+}
+(( $+functions[_uv__tool__help_commands] )) ||
+_uv__tool__help_commands() {
+    local commands; commands=(
+'run:Run a tool' \
+'install:Install a tool' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv tool help commands' commands "$@"
+}
+(( $+functions[_uv__tool__help__help_commands] )) ||
+_uv__tool__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv tool help help commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__help_commands] )) ||
+_uv__toolchain__help_commands() {
+    local commands; commands=(
+'list:List the available toolchains' \
+'install:Download and install a specific toolchain' \
+'find:Search for a toolchain' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv toolchain help commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__help__help_commands] )) ||
+_uv__toolchain__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain help help commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__install_commands] )) ||
+_uv__help__pip__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip install commands' commands "$@"
+}
+(( $+functions[_uv__help__tool__install_commands] )) ||
+_uv__help__tool__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help tool install commands' commands "$@"
+}
+(( $+functions[_uv__help__toolchain__install_commands] )) ||
+_uv__help__toolchain__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help toolchain install commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__install_commands] )) ||
+_uv__pip__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help install commands' commands "$@"
+}
+(( $+functions[_uv__pip__install_commands] )) ||
+_uv__pip__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip install commands' commands "$@"
+}
+(( $+functions[_uv__tool__help__install_commands] )) ||
+_uv__tool__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv tool help install commands' commands "$@"
+}
+(( $+functions[_uv__tool__install_commands] )) ||
+_uv__tool__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv tool install commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__help__install_commands] )) ||
+_uv__toolchain__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain help install commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__install_commands] )) ||
+_uv__toolchain__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain install commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__list_commands] )) ||
+_uv__help__pip__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip list commands' commands "$@"
+}
+(( $+functions[_uv__help__toolchain__list_commands] )) ||
+_uv__help__toolchain__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help toolchain list commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__list_commands] )) ||
+_uv__pip__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help list commands' commands "$@"
+}
+(( $+functions[_uv__pip__list_commands] )) ||
+_uv__pip__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip list commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__help__list_commands] )) ||
+_uv__toolchain__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain help list commands' commands "$@"
+}
+(( $+functions[_uv__toolchain__list_commands] )) ||
+_uv__toolchain__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv toolchain list commands' commands "$@"
+}
+(( $+functions[_uv__help__lock_commands] )) ||
+_uv__help__lock_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help lock commands' commands "$@"
+}
+(( $+functions[_uv__lock_commands] )) ||
+_uv__lock_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv lock commands' commands "$@"
+}
+(( $+functions[_uv__help__pip_commands] )) ||
+_uv__help__pip_commands() {
+    local commands; commands=(
+'compile:Compile a \`requirements.in\` file to a \`requirements.txt\` file' \
+'sync:Sync an environment with a \`requirements.txt\` file' \
+'install:Install packages into an environment' \
+'uninstall:Uninstall packages from an environment' \
+'freeze:Enumerate the installed packages in an environment' \
+'list:Enumerate the installed packages in an environment' \
+'show:Show information about one or more installed packages' \
+'tree:Display the dependency tree for an environment' \
+'check:Verify installed packages have compatible dependencies' \
+    )
+    _describe -t commands 'uv help pip commands' commands "$@"
+}
+(( $+functions[_uv__pip_commands] )) ||
+_uv__pip_commands() {
+    local commands; commands=(
+'compile:Compile a \`requirements.in\` file to a \`requirements.txt\` file' \
+'sync:Sync an environment with a \`requirements.txt\` file' \
+'install:Install packages into an environment' \
+'uninstall:Uninstall packages from an environment' \
+'freeze:Enumerate the installed packages in an environment' \
+'list:Enumerate the installed packages in an environment' \
+'show:Show information about one or more installed packages' \
+'tree:Display the dependency tree for an environment' \
+'check:Verify installed packages have compatible dependencies' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv pip commands' commands "$@"
+}
+(( $+functions[_uv__cache__help__prune_commands] )) ||
+_uv__cache__help__prune_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache help prune commands' commands "$@"
+}
+(( $+functions[_uv__cache__prune_commands] )) ||
+_uv__cache__prune_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv cache prune commands' commands "$@"
+}
+(( $+functions[_uv__help__cache__prune_commands] )) ||
+_uv__help__cache__prune_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help cache prune commands' commands "$@"
+}
+(( $+functions[_uv__help__remove_commands] )) ||
+_uv__help__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help remove commands' commands "$@"
+}
+(( $+functions[_uv__remove_commands] )) ||
+_uv__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv remove commands' commands "$@"
+}
+(( $+functions[_uv__help__run_commands] )) ||
+_uv__help__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help run commands' commands "$@"
+}
+(( $+functions[_uv__help__tool__run_commands] )) ||
+_uv__help__tool__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help tool run commands' commands "$@"
+}
+(( $+functions[_uv__run_commands] )) ||
+_uv__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv run commands' commands "$@"
+}
+(( $+functions[_uv__tool__help__run_commands] )) ||
+_uv__tool__help__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv tool help run commands' commands "$@"
+}
+(( $+functions[_uv__tool__run_commands] )) ||
+_uv__tool__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv tool run commands' commands "$@"
+}
+(( $+functions[_uv__help__self_commands] )) ||
+_uv__help__self_commands() {
+    local commands; commands=(
+'update:Update \`uv\` to the latest version' \
+    )
+    _describe -t commands 'uv help self commands' commands "$@"
+}
+(( $+functions[_uv__self_commands] )) ||
+_uv__self_commands() {
+    local commands; commands=(
+'update:Update \`uv\` to the latest version' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv self commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__show_commands] )) ||
+_uv__help__pip__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip show commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__show_commands] )) ||
+_uv__pip__help__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help show commands' commands "$@"
+}
+(( $+functions[_uv__pip__show_commands] )) ||
+_uv__pip__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip show commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__sync_commands] )) ||
+_uv__help__pip__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip sync commands' commands "$@"
+}
+(( $+functions[_uv__help__sync_commands] )) ||
+_uv__help__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help sync commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__sync_commands] )) ||
+_uv__pip__help__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help sync commands' commands "$@"
+}
+(( $+functions[_uv__pip__sync_commands] )) ||
+_uv__pip__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip sync commands' commands "$@"
+}
+(( $+functions[_uv__sync_commands] )) ||
+_uv__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv sync commands' commands "$@"
+}
+(( $+functions[_uv__help__tool_commands] )) ||
+_uv__help__tool_commands() {
+    local commands; commands=(
+'run:Run a tool' \
+'install:Install a tool' \
+    )
+    _describe -t commands 'uv help tool commands' commands "$@"
+}
+(( $+functions[_uv__tool_commands] )) ||
+_uv__tool_commands() {
+    local commands; commands=(
+'run:Run a tool' \
+'install:Install a tool' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv tool commands' commands "$@"
+}
+(( $+functions[_uv__help__toolchain_commands] )) ||
+_uv__help__toolchain_commands() {
+    local commands; commands=(
+'list:List the available toolchains' \
+'install:Download and install a specific toolchain' \
+'find:Search for a toolchain' \
+    )
+    _describe -t commands 'uv help toolchain commands' commands "$@"
+}
+(( $+functions[_uv__toolchain_commands] )) ||
+_uv__toolchain_commands() {
+    local commands; commands=(
+'list:List the available toolchains' \
+'install:Download and install a specific toolchain' \
+'find:Search for a toolchain' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'uv toolchain commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__tree_commands] )) ||
+_uv__help__pip__tree_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip tree commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__tree_commands] )) ||
+_uv__pip__help__tree_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help tree commands' commands "$@"
+}
+(( $+functions[_uv__pip__tree_commands] )) ||
+_uv__pip__tree_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip tree commands' commands "$@"
+}
+(( $+functions[_uv__help__pip__uninstall_commands] )) ||
+_uv__help__pip__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help pip uninstall commands' commands "$@"
+}
+(( $+functions[_uv__pip__help__uninstall_commands] )) ||
+_uv__pip__help__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip help uninstall commands' commands "$@"
+}
+(( $+functions[_uv__pip__uninstall_commands] )) ||
+_uv__pip__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv pip uninstall commands' commands "$@"
+}
+(( $+functions[_uv__help__self__update_commands] )) ||
+_uv__help__self__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help self update commands' commands "$@"
+}
+(( $+functions[_uv__self__help__update_commands] )) ||
+_uv__self__help__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv self help update commands' commands "$@"
+}
+(( $+functions[_uv__self__update_commands] )) ||
+_uv__self__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv self update commands' commands "$@"
+}
+(( $+functions[_uv__help__venv_commands] )) ||
+_uv__help__venv_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help venv commands' commands "$@"
+}
+(( $+functions[_uv__venv_commands] )) ||
+_uv__venv_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv venv commands' commands "$@"
+}
+(( $+functions[_uv__help__version_commands] )) ||
+_uv__help__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv help version commands' commands "$@"
+}
+(( $+functions[_uv__version_commands] )) ||
+_uv__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'uv version commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_uv" ]; then
+    _uv "$@"
+else
+    compdef _uv uv
+fi
