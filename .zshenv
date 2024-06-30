@@ -31,9 +31,8 @@ export GOPATH="$XDG_DATA_HOME/go"
 # Configuring Zig
 export PATH="$PATH:$HOME/code/langs/zig"
 
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # shellcheck disable=SC1091
-. "$CARGO_HOME/env"
+. "$HOME/.cargo/env"
 
 # perl envvars
 export PATH="/home/noahj/.perl5/bin${PATH:+:${PATH}}"
