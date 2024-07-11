@@ -47,6 +47,8 @@ export GEM_PATH=$HOME/.gem
 
 # forcing usage of venv to install with pip
 export PIP_REQUIRE_VIRTUALENV=true
+# adding pythonhist envvar
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 
 # assigning zimfw home variable before being called in ~/.zshrc
 export ZIM_HOME="$HOME/.zim"
