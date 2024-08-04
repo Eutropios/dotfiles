@@ -27,6 +27,7 @@ PATH="$HOME/code/shellScripts/:$PATH"
 # Configuring Go
 PATH="$PATH:/usr/local/go/bin"
 export GOPATH="$XDG_DATA_HOME/go"
+export GOBIN="$HOME/.local/bin/go"
 
 # Configuring Zig
 export PATH="$PATH:$HOME/code/langs/zig"
