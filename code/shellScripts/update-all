@@ -31,7 +31,6 @@ function main() {
     run rustup update
     run cargo-install-update install-update --all
     run pnpm update -gL
-    run rye self update
     run pipx upgrade-all
     run pip cache purge
 }

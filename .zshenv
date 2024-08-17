@@ -57,5 +57,9 @@ export ZIM_HOME="$HOME/.zim"
 # Adding luarocks to path
 eval "$(luarocks path)"
 
-# adding rye to path
-. "$HOME/.rye/env"
+# adding ghcup to path
+[ -f "/home/noahj/.ghcup/env" ] && . "/home/noahj/.ghcup/env"
+
+export GHCUP_USE_XDG_DIRS=true
+
+export STACK_XDG=1

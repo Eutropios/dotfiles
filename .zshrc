@@ -26,6 +26,9 @@ zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle :compinstall filename '/home/noahj/.zshrc'
 
+# setting histfile location
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+
 # loading modules
 autoload -Uz compinit vcs_info
 autoload -U zmv bashcompinit colors && colors
@@ -33,7 +36,8 @@ autoload -U zmv bashcompinit colors && colors
 # modifying compinit
 fpath+=~/.zfunc
 
-compinit && bashcompinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+bashcompinit
 
 # ---- Prompt configuration ----
 # VCS info
