@@ -98,6 +98,7 @@ alias find="fd"                         # better find
 alias grep="rg"                         # make grep to use ripgrep
 alias ls="lsd"                          # easier lsd alias
 alias py="python3"                      # Windows version of python3
+alias pypy="pypy3"                      # ensuring pypy3 usage
 alias python="python3"                  # ensuring python3 usage
 alias tree="erd"                        # better tree
 alias vim="nvim"                        # ensuring usage of neovim
