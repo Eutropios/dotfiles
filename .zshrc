@@ -88,6 +88,15 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 # --- End of ZimFW config ---
 
+# Some programs require exporting in zshrc, or at least prefer it
+# pnpm
+export PNPM_HOME="/home/noahj/.local/share/pnpm"
+case ":$PATH:" in
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # Aliases
 alias cat="bat"                         # aliasing cat to bat
 alias cls="clear"                       # Windows version of clear
