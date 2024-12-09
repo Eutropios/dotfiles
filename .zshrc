@@ -4,7 +4,7 @@
 # zsh plugin manager: ZimFW
 # zsh plugins: autocomplete, syntax highlighting, atuin,
 # zsh modules: vcs, zmv, compinit, bashcompinit, colors
-# Distribution: Fedora Desktop 39
+# Distribution: Fedora Desktop 41
 # Startup: systemd
 
 # ---***---***---***---***---
@@ -60,16 +60,20 @@ PROMPT='%B%F{green}%n%f%b@%B%F{cyan}%m%f%b:%B%F{blue}%~%f%b$ '
 
 # ---- ZimFW config ----
 
-# Download zimfw plugin manager if missing
+ZIM_HOME="${ZDOTDIR:-${HOME}}/.zim"
+# Download zimfw plugin manager if missing.
 if [[ ! -e "${ZIM_HOME}/zimfw.zsh" ]]; then
+  if (( ${+commands[curl]} )); then
     curl -fsSL --create-dirs -o "${ZIM_HOME}/zimfw.zsh" \
         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p "${ZIM_HOME}" && wget -nv -O "${ZIM_HOME}/zimfw.zsh" \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
 fi
-
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! "${ZIM_HOME}/init.zsh" -nt "${ZDOTDIR:-${HOME}}/.zimrc" ]]; then
-    # shellcheck disable=SC1091
-    source "${ZIM_HOME}/zimfw.zsh init -q"
+  . "${ZIM_HOME}/zimfw.zsh init -q"
 fi
 
 # Initialize modules
@@ -83,12 +87,13 @@ ZSH_HIGHLIGHT_STYLES[alias]='fg=yellow,bold'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow,bold'
 ZSH_HIGHLIGHT_STYLES[command]='fg=yellow,bold'
 
-# To have paths colored instead of underlined
+## To have paths colored instead of underlined
 ZSH_HIGHLIGHT_STYLES[path]='fg=white,bold'
 
 # --- End of ZimFW config ---
 
 # Some programs require exporting in zshrc, or at least prefer it
+
 # pnpm
 export PNPM_HOME="/home/noahj/.local/share/pnpm"
 case ":$PATH:" in
@@ -106,7 +111,6 @@ alias du="du -h --max-depth=1"          # set default for du command
 alias find="fd"                         # better find
 alias grep="rg"                         # make grep to use ripgrep
 alias ls="lsd"                          # easier lsd alias
-alias py="python3"                      # Windows version of python3
 alias pypy="pypy3"                      # ensuring pypy3 usage
 alias python="python3"                  # ensuring python3 usage
 alias tree="erd"                        # better tree
