@@ -1,8 +1,4 @@
 *.fish linguist-detectable
-*.yaml linguist-detectable
 .zimrc linguist-language=Shell
 *.fish linguist-language=Shell
 .zfunc/** linguist-detectable=false
-.markdownlint.yaml linguist-vendored
-.pre-commit-config.yaml linguist-vendored
-.yamllint.yaml linguist-vendored
