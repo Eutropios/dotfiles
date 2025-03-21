@@ -113,7 +113,6 @@ alias grep="rg"                         # make grep to use ripgrep
 alias ls="lsd"                          # easier lsd alias
 alias pypy="pypy3"                      # ensuring pypy3 usage
 alias python="python3"                  # ensuring python3 usage
-alias tree="erd"                        # better tree
 alias vim="nvim"                        # ensuring usage of neovim
 alias zim="zimfw"                       # zimfw package manager for zsh
 alias zj="zellij"                       # give zellij a shorter name
