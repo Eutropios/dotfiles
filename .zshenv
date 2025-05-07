@@ -55,4 +55,3 @@ eval "$(luarocks path)"
 export GHCUP_USE_XDG_DIRS=true
 
 export STACK_XDG=1
-export FORCE_COLOR=1
