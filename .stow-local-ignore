@@ -25,4 +25,3 @@ _darcs
 ^/\.pre-commit-config\.yaml
 ^/\.markdownlint\.yaml
 ^/\.yamllint\.yaml
-^/\.gitignore
