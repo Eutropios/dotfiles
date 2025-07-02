@@ -55,3 +55,4 @@ eval "$(luarocks path)"
 export GHCUP_USE_XDG_DIRS=true
 
 export STACK_XDG=1
+export CALCHISTFILE="$XDG_CACHE_HOME"/calc_history

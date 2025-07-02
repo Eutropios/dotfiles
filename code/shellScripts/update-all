@@ -32,7 +32,8 @@ function main() {
     run cargo-install-update install-update --all
     run pnpm self-update
     run pnpm update -gL
-    run pipx upgrade-all
+    run uv self update
+    run uv tool upgrade --all
     run pip cache purge
     run pip list --outdated
 }

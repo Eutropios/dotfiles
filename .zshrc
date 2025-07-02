@@ -60,7 +60,7 @@ PROMPT='%B%F{green}%n%f%b@%B%F{cyan}%m%f%b:%B%F{blue}%~%f%b$ '
 
 # ---- ZimFW config ----
 
-ZIM_HOME="${ZDOTDIR:-${HOME}}/.zim"
+ZIM_HOME="${HOME}/.zim"
 # Download zimfw plugin manager if missing.
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
     curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
@@ -68,7 +68,7 @@ if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
 fi
 
 # Install missing modules and update ${ZIM_HOME}/init.zsh if missing or outdated.
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${HOME}/.zimrc} ]]; then
     source ${ZIM_HOME}/zimfw.zsh init
 fi
 
@@ -97,6 +97,8 @@ case ":$PATH:" in
     *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+. "$HOME/.local/share/../bin/env"
 
 # Aliases
 alias cat="bat"                         # aliasing cat to bat
